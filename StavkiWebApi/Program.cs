@@ -7,11 +7,11 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddDbContext<ApplicationContext>(options => options.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=StavkiDB;Trusted_Connection=True;"));
-builder.Services.AddControllers();
-builder.Services.AddTransient<IUnitOfWork, EFUnitOfWork>();
-builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddTransient<IUnitOfWork, EFUnitOfWork>();
+builder.Services.AddControllers();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddDbContext<ApplicationContext>();
 
 var app = builder.Build();
 

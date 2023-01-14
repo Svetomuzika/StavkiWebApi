@@ -25,6 +25,24 @@ namespace StavkiWebApi.Models.Repositories
             DBContext.SaveChanges();
         }
 
+        public bool CreateAccount(Client client)
+        {
+            if(GetAll().Any(x => x.Login == client.Login))
+                return false;
+
+            try
+            {
+                DBContext.Clients.Add(client);
+                DBContext.SaveChanges();
+            }
+            catch
+            {
+                return false;
+            }
+
+            return true;
+        }
+
         public void Update(Client client)
         {
             DBContext.Entry(client).State = EntityState.Modified;

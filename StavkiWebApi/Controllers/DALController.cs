@@ -15,7 +15,7 @@ namespace StavkiWebApi.Controllers
             this.unitOfWork = unitOfWork;
         }
 
-        [HttpGet("Auth/Client/{data}")] //login = "login/password"
+        [HttpGet("Auth/Client")] //login = "login/password"
         public Client AuthClient(string data)
         {
             var client = unitOfWork.Clients.Auth(data);
@@ -24,9 +24,9 @@ namespace StavkiWebApi.Controllers
         }
 
         [HttpPost("Auth/Client/Create")]
-        public void CreateClient(Client client)
+        public bool CreateClient(Client client)
         {
-            unitOfWork.Clients.Create(client);
+            return unitOfWork.Clients.CreateAccount(client);
         }
     }
 }

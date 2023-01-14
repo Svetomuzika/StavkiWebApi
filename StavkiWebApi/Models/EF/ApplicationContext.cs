@@ -5,13 +5,17 @@ namespace StavkiWebApi.Models.EF
 {
     public class ApplicationContext : DbContext
     {
-        public DbSet<Client> Clients { get; set; } = null!;
-
-        public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options)
+        public DbSet<Client> Clients => Set<Client>();
+        public DbSet<Request> Requests => Set<Request>();
+        public ApplicationContext() 
         {
-            Console.WriteLine("Sdds");
+            Database.EnsureDeleted();   
+            Database.EnsureCreated();
+        } 
 
-            Database.Migrate();
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSqlite(@"Data Source=C:\Users\sozon\Desktop\Stavki\StavkiWebApi\StavkiWebApi\bin\Debug\net6.0\StvavkiDB.db");
         }
     }
 }
