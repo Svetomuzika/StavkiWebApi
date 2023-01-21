@@ -10,11 +10,10 @@ namespace StavkiWebApi.Models.EF
         public DbSet<Gorod> Gorod => Set<Gorod>();
         public DbSet<BlizMezhGorodSNDS> BlizMezhGorodSNDS => Set<BlizMezhGorodSNDS>();
         public DbSet<MezhgorodSNDS> MezhgorodSNDS => Set<MezhgorodSNDS>();
-
-        public ApplicationContext() 
+        public ApplicationContext()
         {
-
-        } 
+            Database.EnsureCreated();
+        }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

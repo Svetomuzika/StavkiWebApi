@@ -4,12 +4,12 @@ using StavkiWebApi.Models.Interfaces;
 
 namespace StavkiWebApi.Models.Repositories
 {
-    public class MezhGorodRepository : IRepository<MezhgorodSNDS>
+    public class MezhgorodRepository : IRepository<MezhgorodSNDS>
     {
 
         private ApplicationContext DBContext;
 
-        public MezhGorodRepository(ApplicationContext context)
+        public MezhgorodRepository(ApplicationContext context)
         {
             DBContext = context;
         }

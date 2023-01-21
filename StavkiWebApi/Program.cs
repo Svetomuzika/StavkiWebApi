@@ -12,6 +12,7 @@ builder.Services.AddTransient<IUnitOfWork, EFUnitOfWork>();
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddDbContext<ApplicationContext>();
+builder.Services.AddCors();
 
 var app = builder.Build();
 
@@ -21,6 +22,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseCors(builder => builder.AllowAnyOrigin());
 
 app.UseHttpsRedirection();
 

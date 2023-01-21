@@ -10,7 +10,7 @@ namespace StavkiWebApi.Models.Repositories
         private ClientRepository clientRepository;
         private GorodRepositorty gorodRepository;
         private BlizMezhGorodRepository blizMezhGorodSNDSRepository;
-        private MezhGorodRepository mezhgorodSNDSRepository;
+        private MezhgorodRepository mezhgorodSNDSRepository;
         private RequestRepository requestRepository;
 
         public EFUnitOfWork(ApplicationContext context)
@@ -55,7 +55,7 @@ namespace StavkiWebApi.Models.Repositories
             get
             {
                 if (mezhgorodSNDSRepository == null)
-                    mezhgorodSNDSRepository = new MezhGorodRepository(DBContext);
+                    mezhgorodSNDSRepository = new MezhgorodRepository(DBContext);
 
                 return mezhgorodSNDSRepository;
             }
