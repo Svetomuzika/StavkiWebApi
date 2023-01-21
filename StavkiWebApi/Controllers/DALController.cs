@@ -28,5 +28,23 @@ namespace StavkiWebApi.Controllers
         {
             return unitOfWork.Clients.CreateAccount(client);
         }
+
+        [HttpGet("Stavki/Gorod")]
+        public IEnumerable<Gorod> GetStavkiGorod()
+        {
+            return unitOfWork.Gorod.GetAll();
+        }
+
+        [HttpGet("Stavki/BlizMezhGorodSNDS")]
+        public IEnumerable<BlizMezhGorodSNDS> GetStavkiBlizMezhGorodSNDS()
+        {
+            return unitOfWork.BlizMezhGorodSNDS.GetAll();
+        }
+
+        [HttpGet("Stavki/MezhgorodSNDS")]
+        public IEnumerable<MezhgorodSNDS> GetStavkiMezhgorodSNDS()
+        {
+            return unitOfWork.MezhgorodSNDS.GetAll();
+        }
     }
 }

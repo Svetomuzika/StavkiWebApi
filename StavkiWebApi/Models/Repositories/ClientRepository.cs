@@ -49,15 +49,10 @@ namespace StavkiWebApi.Models.Repositories
             DBContext.SaveChanges();
         }
 
-        public void Delete(int id)
+        public void Delete(Client item)
         {
-            Client client = DBContext.Clients.Find(id);
-
-            if (client != null)
-            {
-                DBContext.Clients.Remove(client);
-                DBContext.SaveChanges();
-            }
+            DBContext.Clients.Remove(item);
+            DBContext.SaveChanges();
         }
 
         public Client Auth(string data)
