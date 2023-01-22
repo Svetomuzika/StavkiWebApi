@@ -24,7 +24,7 @@ namespace StavkiWebApi.Models.Repositories
             throw new NotImplementedException();
         }
 
-        void IRepository<Gorod>.Create(Gorod item)
+        void IRepository<Gorod>.Add(Gorod item)
         {
             throw new NotImplementedException();
         }

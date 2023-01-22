@@ -5,7 +5,7 @@ using StavkiWebApi.Models.Interfaces;
 namespace StavkiWebApi.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("Api/[controller]")]
     public class DALController : ControllerBase
     {
         IUnitOfWork unitOfWork;
@@ -104,6 +104,24 @@ namespace StavkiWebApi.Controllers
             a.AddRange(a2);
 
             return a;
+        }
+
+        [HttpPost("Requests/AddRequest")]
+        public void AddRequest(Request requset)
+        {
+            unitOfWork.Requests.Add(requset);
+        }
+
+        [HttpGet("Requests/GetAllRequests")]
+        public IEnumerable<Request> GetAllRequests()
+        {
+            return unitOfWork.Requests.GetAll();
+        }
+
+        [HttpGet("Requests/GetAllRequestsByClientId")]
+        public IEnumerable<Request> GetAllRequestsByClientId(int clientId)
+        {
+            return unitOfWork.Requests.GetAll().Where(x => x.ClientId == clientId);
         }
     }
 }

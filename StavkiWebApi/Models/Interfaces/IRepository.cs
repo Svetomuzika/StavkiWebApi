@@ -6,7 +6,7 @@ namespace StavkiWebApi.Models.Interfaces
     {
         IEnumerable<T> GetAll();
 
-        void Create(T item);
+        void Add(T item);
 
         bool CreateAccount(Client item);
 

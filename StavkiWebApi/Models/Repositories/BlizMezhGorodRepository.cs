@@ -23,7 +23,7 @@ namespace StavkiWebApi.Models.Repositories
             throw new NotImplementedException();
         }
 
-        void IRepository<BlizMezhGorodSNDS>.Create(BlizMezhGorodSNDS item)
+        void IRepository<BlizMezhGorodSNDS>.Add(BlizMezhGorodSNDS item)
         {
             throw new NotImplementedException();
         }

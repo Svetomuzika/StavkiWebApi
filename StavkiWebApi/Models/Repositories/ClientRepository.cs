@@ -19,7 +19,7 @@ namespace StavkiWebApi.Models.Repositories
             return DBContext.Clients;
         }
 
-        public void Create(Client client)
+        public void Add(Client client)
         {
             DBContext.Clients.Add(client);
             DBContext.SaveChanges();

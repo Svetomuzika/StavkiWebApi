@@ -19,7 +19,7 @@ namespace StavkiWebApi.Models.Repositories
             return DBContext.Requests;
         }
 
-        public void Create(Request item)
+        public void Add(Request item)
         {
             DBContext.Requests.Add(item);
             DBContext.SaveChanges();
