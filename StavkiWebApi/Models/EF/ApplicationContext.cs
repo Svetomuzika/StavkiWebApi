@@ -17,7 +17,7 @@ namespace StavkiWebApi.Models.EF
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlite(@"Data Source=C:\Users\sozon\Desktop\Stavki\StavkiWebApi\StavkiWebApi\bin\Debug\net6.0\StvavkiDB.db");
+            optionsBuilder.UseSqlite("Data source=" + Environment.CurrentDirectory + @"\StvavkiDB.db");
         }
     }
 }
