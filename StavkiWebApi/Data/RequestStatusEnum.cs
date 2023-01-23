@@ -4,6 +4,6 @@
     {
         Created,
         InProgress,
-        Done
+        Done,
     }
 }

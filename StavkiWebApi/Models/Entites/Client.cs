@@ -16,9 +16,9 @@ namespace StavkiWebApi.Models.Entites
 
         public string Email { get; set; }
 
-        public string Company { get; set; }
+        public string? Company { get; set; }
 
-        public string INN { get; set; }
+        public string? INN { get; set; }
 
         public string Login { get; set; }
 

@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
-using System.Text.Json;
 using StavkiWebApi.Models.Entites;
 using StavkiWebApi.Models.Interfaces;
-using System;
+using StavkiWebApi.Data;
+using Newtonsoft.Json;
 
 namespace StavkiWebApi.Controllers
 {
@@ -28,9 +28,14 @@ namespace StavkiWebApi.Controllers
         [HttpPost("Auth/Client/Create")]
         public bool CreateClient(object client)
         {
-            var a = JsonSerializer.Serialize(client);
-            var o = JsonSerializer.Deserialize<Client>(a);
-            return unitOfWork.Clients.CreateAccount(o);
+            //var a = JsonSerializer.Serialize(client);
+            //var o = JsonSerializer.Deserialize<Client>(a);
+            var c = client.ToString();
+
+
+
+            var a = JsonConvert.DeserializeObject<Client>(c); 
+            return unitOfWork.Clients.CreateAccount(a);
         }
 
         [HttpGet("Stavki/GorodSNDS")]
@@ -164,6 +169,26 @@ namespace StavkiWebApi.Controllers
             }
 
             return result ??= 0;
+        }
+
+
+        // пример ссылки -- https://localhost:44360/Api/DAL/Requests/ChangeStatus?id=0&status=0
+        // 0 - Created
+        // 1 - InProgress
+        // 2 - Done
+        [HttpPut("Requests/ChangeStatus")]
+        public bool ChangeStatus(int id, RequestStatusEnum status)
+        {
+            var request = unitOfWork.Requests.GetAll().Where(x => x.Id == id).SingleOrDefault();
+
+            if (request == null)
+                return false;
+
+            request.Status = status;
+
+            unitOfWork.Requests.Update(request);
+
+            return true;
         }
     }
 }
