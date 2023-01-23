@@ -173,6 +173,7 @@ namespace StavkiWebApi.Controllers
 
 
         // пример ссылки -- https://localhost:44360/Api/DAL/Requests/ChangeStatus?id=0&status=0
+        //Значения status 
         // 0 - Created
         // 1 - InProgress
         // 2 - Done
