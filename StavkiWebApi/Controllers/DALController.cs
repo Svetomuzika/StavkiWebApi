@@ -124,8 +124,11 @@ namespace StavkiWebApi.Controllers
             return unitOfWork.Requests.GetAll().Where(x => x.ClientId == clientId);
         }
 
-        [HttpGet("Requests/GetSum")]
-        public float GetSum(float weight, string city)
+
+        // Пример ссылки -- https://https://localhost:44360/Api/DAL/Requests/GetRequestSum?weight=28&city=Златоуст
+
+        [HttpGet("Requests/GetRequestSum")]
+        public float GetRequestSum(float weight, string city)
         {
             var gorod = unitOfWork.Gorod.GetAll();
             var bliz = unitOfWork.BlizMezhGorodSNDS.GetAll();
