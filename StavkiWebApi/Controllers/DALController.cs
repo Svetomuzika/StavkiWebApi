@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
+using System.Text.Json;
 using StavkiWebApi.Models.Entites;
 using StavkiWebApi.Models.Interfaces;
+using System;
 
 namespace StavkiWebApi.Controllers
 {
@@ -24,9 +26,11 @@ namespace StavkiWebApi.Controllers
         }
 
         [HttpPost("Auth/Client/Create")]
-        public bool CreateClient(Client client)
+        public bool CreateClient(object client)
         {
-            return unitOfWork.Clients.CreateAccount(client);
+            var a = JsonSerializer.Serialize(client);
+            var o = JsonSerializer.Deserialize<Client>(a);
+            return unitOfWork.Clients.CreateAccount(o);
         }
 
         [HttpGet("Stavki/GorodSNDS")]
