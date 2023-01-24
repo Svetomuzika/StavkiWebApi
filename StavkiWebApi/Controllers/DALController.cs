@@ -158,7 +158,7 @@ namespace StavkiWebApi.Controllers
             //    DepartureDate = "4.01.23",
             //    RequestCreateDate = "28.12.22",
             //    Comment = "Хрупкий груз!!!!",
-            //    ClientId = 1
+            //    ClientId = 2
             //};
 
 
