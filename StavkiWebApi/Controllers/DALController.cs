@@ -26,16 +26,42 @@ namespace StavkiWebApi.Controllers
         }
 
         [HttpPost("Auth/Client/Create")]
-        public bool CreateClient(object client)
+        public bool CreateClient()
         {
-            //var a = JsonSerializer.Serialize(client);
-            //var o = JsonSerializer.Deserialize<Client>(a);
-            var c = client.ToString();
+            //var c = client.ToString();
 
+            //var a = new Client()
+            //{
+            //    Name = "Анастасия",
+            //    Surname = "Челядникова",
+            //    Patronymic = "Константиновна",
+            //    PhoneNumber = "+7 (901) 453 45-15",
+            //    Email = "nastya.chelyadnikova@mail.ru",
+            //    Company = "ООО \"Ромашка\"",
+            //    INN = "519211514",
+            //    Login = "user1",
+            //    Password = "user1",
+            //};
 
+            //var b = new Client()
+            //{
+            //    Name = "Никита",
+            //    Surname = "Иванов",
+            //    Patronymic = "Константинович",
+            //    PhoneNumber = "+7 (912) 387 22-16",
+            //    Email = "nikita.ivanov@mail.ru",
+            //    Company = "ООО \"СпецТехАвто\"",
+            //    INN = "726587514",
+            //    Login = "user2",
+            //    Password = "user2",
+            //};
 
-            var a = JsonConvert.DeserializeObject<Client>(c); 
-            return unitOfWork.Clients.CreateAccount(a);
+            //var a = JsonConvert.DeserializeObject<Client>(c);
+
+            //unitOfWork.Clients.CreateAccount(a);
+            //unitOfWork.Clients.CreateAccount(b);
+
+            return true;
         }
 
         [HttpGet("Stavki/GorodSNDS")]
@@ -127,17 +153,17 @@ namespace StavkiWebApi.Controllers
             return unitOfWork.Requests.GetAll();
         }
 
-        [HttpGet("Requests/GetAllRequestsByClientId")]
+        [HttpPost("Requests/GetAllRequestsByClientId")]
         public IEnumerable<Request> GetAllRequestsByClientId(int clientId)
         {
             return unitOfWork.Requests.GetAll().Where(x => x.ClientId == clientId);
         }
 
 
-        // Пример ссылки -- https://https://localhost:44360/Api/DAL/Requests/GetRequestSum?weight=28&city=Златоуст
+        // Пример ссылки -- https://https://localhost:5001/Api/DAL/Requests/GetRequestSum?weight=28&city=Златоуст
 
-        [HttpGet("Requests/GetRequestSum")]
-        public float GetRequestSum(float weight, string city)
+        [HttpPost("Requests/GetRequestSum")]
+        public float GetRequestSum(int weight, string city)
         {
             var gorod = unitOfWork.Gorod.GetAll();
             var bliz = unitOfWork.BlizMezhGorodSNDS.GetAll();
@@ -172,7 +198,7 @@ namespace StavkiWebApi.Controllers
         }
 
 
-        // пример ссылки -- https://localhost:44360/Api/DAL/Requests/ChangeStatus?id=0&status=0
+        // пример ссылки -- https://localhost:5001/Api/DAL/Requests/ChangeStatus?id=0&status=0
         //Значения status 
         // 0 - Created
         // 1 - InProgress
