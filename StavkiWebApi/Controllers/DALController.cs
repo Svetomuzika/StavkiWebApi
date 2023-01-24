@@ -26,9 +26,13 @@ namespace StavkiWebApi.Controllers
         }
 
         [HttpPost("Auth/Client/Create")]
-        public bool CreateClient()
+        public bool CreateClient(Client a)
         {
-            //var c = client.ToString();
+            var c = a.ToString();
+            var a = JsonConvert.DeserializeObject<Client>(c);
+
+            return unitOfWork.Clients.CreateAccount(a);
+
 
             //var a = new Client()
             //{
@@ -56,12 +60,10 @@ namespace StavkiWebApi.Controllers
             //    Password = "user2",
             //};
 
-            //var a = JsonConvert.DeserializeObject<Client>(c);
-
             //unitOfWork.Clients.CreateAccount(a);
             //unitOfWork.Clients.CreateAccount(b);
+            //1, StatusEnum.Created, "Екатеринбург", "Бугульма", 20, 2, 20000, "15.09.22", "09.12.22"
 
-            return true;
         }
 
         [HttpGet("Stavki/GorodSNDS")]
@@ -142,9 +144,25 @@ namespace StavkiWebApi.Controllers
         }
 
         [HttpPost("Requests/AddRequest")]
-        public void AddRequest(Request requset)
+        public void AddRequest(Request a)
         {
-            unitOfWork.Requests.Add(requset);
+            //var a = new Request()
+            //{
+            //    RequestNumber = 2,
+            //    Status = RequestStatusEnum.InProgress,
+            //    DepartureCity = "Екатеринбург",
+            //    ArrivalCity = "Пермь",
+            //    ContainerSize = 40,
+            //    CargoWeight = 25,
+            //    Price = 41617,
+            //    DepartureDate = "4.01.23",
+            //    RequestCreateDate = "28.12.22",
+            //    Comment = "Хрупкий груз!!!!",
+            //    ClientId = 1
+            //};
+
+
+            unitOfWork.Requests.Add(a);
         }
 
         [HttpGet("Requests/GetAllRequests")]
