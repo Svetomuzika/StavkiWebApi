@@ -39,7 +39,7 @@ namespace StavkiWebApi.Controllers
         }
 
         [HttpGet("Stavki/BlizMezhGorodSNDS")]
-        public IEnumerable<BlizMezhGorodSNDS> GetStavkiBlizMezhGorodSNDS() => unitOfWork.BlizMezhGorodSNDS.GetAll();
+        public IEnumerable<BlizMezhGorodSNDS> GetStavkiBlizMezhGorodSNDS() => unitOfWork.BlizMezhGorodSNDS.GetAll().ToList();
 
         [HttpGet("Stavki/BlizMezhGorod")]
         public IEnumerable<BlizMezhGorodSNDS> GetStavkiBlizMezhGorod()
@@ -57,7 +57,7 @@ namespace StavkiWebApi.Controllers
         }
 
         [HttpGet("Stavki/MezhgorodSNDS")]
-        public IEnumerable<MezhgorodSNDS> GetStavkiMezhgorodSNDS() => unitOfWork.MezhgorodSNDS.GetAll();
+        public IEnumerable<MezhgorodSNDS> GetStavkiMezhgorodSNDS() => unitOfWork.MezhgorodSNDS.GetAll().ToList();
 
         [HttpGet("Stavki/Mezhgorod")]
         public IEnumerable<MezhgorodSNDS> GetStavkiMezhgorod()
