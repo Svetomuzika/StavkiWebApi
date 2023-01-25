@@ -39,9 +39,14 @@ namespace StavkiWebApi.Models.Repositories
             throw new NotImplementedException();
         }
 
-        void IRepository<MezhgorodSNDS>.Update(MezhgorodSNDS item)
+        public void Update(MezhgorodSNDS item)
         {
             throw new NotImplementedException();
+        }
+
+        public MezhgorodSNDS GetById(int id)
+        {
+            return DBContext.MezhgorodSNDS.Find(id);
         }
     }
 }

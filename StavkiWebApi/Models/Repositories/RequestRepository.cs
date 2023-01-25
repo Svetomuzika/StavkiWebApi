@@ -37,14 +37,19 @@ namespace StavkiWebApi.Models.Repositories
             DBContext.SaveChanges();
         }
 
-        bool IRepository<Request>.CreateAccount(Client item)
+        public bool CreateAccount(Client item)
         {
             throw new NotImplementedException();
         }
 
-        Request IRepository<Request>.Auth(string data)
+        public Request Auth(string data)
         {
             throw new NotImplementedException();
+        }
+
+        public Request GetById(int id)
+        {
+            return DBContext.Requests.Include(x => x.Client).Where(x => x.Id == id).SingleOrDefault();
         }
     }
 }

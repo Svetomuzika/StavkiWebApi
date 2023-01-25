@@ -19,29 +19,34 @@ namespace StavkiWebApi.Models.Repositories
             return DBContext.Gorod;
         }
 
-        Gorod IRepository<Gorod>.Auth(string data)
+        public Gorod Auth(string data)
         {
             throw new NotImplementedException();
         }
 
-        void IRepository<Gorod>.Add(Gorod item)
+        public void Add(Gorod item)
         {
             throw new NotImplementedException();
         }
 
-        bool IRepository<Gorod>.CreateAccount(Client item)
+        public bool CreateAccount(Client item)
         {
             throw new NotImplementedException();
         }
 
-        void IRepository<Gorod>.Delete(Gorod item)
+        public void Delete(Gorod item)
         {
             throw new NotImplementedException();
         }
 
-        void IRepository<Gorod>.Update(Gorod item)
+        public void Update(Gorod item)
         {
             throw new NotImplementedException();
+        }
+
+        public Gorod GetById(int id)
+        {
+            return DBContext.Gorod.Find(id);
         }
     }
 }

@@ -12,175 +12,90 @@ namespace StavkiWebApi.Controllers
     {
         IUnitOfWork unitOfWork;
 
-        public DALController(IUnitOfWork unitOfWork)
-        {
-            this.unitOfWork = unitOfWork;
-        }
+        public DALController(IUnitOfWork unitOfWork) => this.unitOfWork = unitOfWork;
 
         [HttpGet("Auth/Client")] //login = "login/password"
-        public Client AuthClient(string data)
-        {
-            var client = unitOfWork.Clients.Auth(data);
-
-            return client;
-        }
+        public Client AuthClient(string data) => unitOfWork.Clients.Auth(data);
 
         [HttpPost("Auth/Client/Create")]
-        public bool CreateClient(Client a)
-        {
-            var c = a.ToString();
-            a = JsonConvert.DeserializeObject<Client>(c);
-
-            return unitOfWork.Clients.CreateAccount(a);
-
-
-            //var a = new Client()
-            //{
-            //    Name = "Анастасия",
-            //    Surname = "Челядникова",
-            //    Patronymic = "Константиновна",
-            //    PhoneNumber = "+7 (901) 453 45-15",
-            //    Email = "nastya.chelyadnikova@mail.ru",
-            //    Company = "ООО \"Ромашка\"",
-            //    INN = "519211514",
-            //    Login = "user1",
-            //    Password = "user1",
-            //};
-
-            //var b = new Client()
-            //{
-            //    Name = "Никита",
-            //    Surname = "Иванов",
-            //    Patronymic = "Константинович",
-            //    PhoneNumber = "+7 (912) 387 22-16",
-            //    Email = "nikita.ivanov@mail.ru",
-            //    Company = "ООО \"СпецТехАвто\"",
-            //    INN = "726587514",
-            //    Login = "user2",
-            //    Password = "user2",
-            //};
-
-            //unitOfWork.Clients.CreateAccount(a);
-            //unitOfWork.Clients.CreateAccount(b);
-            //1, StatusEnum.Created, "Екатеринбург", "Бугульма", 20, 2, 20000, "15.09.22", "09.12.22"
-
-        }
+        public bool CreateClient(string a) => unitOfWork.Clients.CreateAccount(JsonConvert.DeserializeObject<Client>(a));
 
         [HttpGet("Stavki/GorodSNDS")]
-        public IEnumerable<Gorod> GetStavkiGorodSNDS()
-        {
-            return unitOfWork.Gorod.GetAll();
-        }
+        public IEnumerable<Gorod> GetStavkiGorodSNDS() => unitOfWork.Gorod.GetAll();
 
         [HttpGet("Stavki/Gorod")]
         public IEnumerable<Gorod> GetStavkiGorod()
         {
-            var a = unitOfWork.Gorod.GetAll().ToList();
+            var allCities = unitOfWork.Gorod.GetAll().ToList();
 
-            foreach (var e in a)
+            foreach (var city in allCities)
             {
-                e.Ft20 = (int)(e.Ft20 * 0.8);
-                e.Ft40 = (int)(e.Ft40 * 0.8);
-                e.Ot24Do30Tn = (int)(e.Ot24Do30Tn * 0.8);
+                city.Ft20 = (int)(city.Ft20 * 0.8);
+                city.Ft40 = (int)(city.Ft40 * 0.8);
+                city.Ot24Do30Tn = (int)(city.Ot24Do30Tn * 0.8);
             }
 
-            return a;
+            return allCities;
         }
 
         [HttpGet("Stavki/BlizMezhGorodSNDS")]
-        public IEnumerable<BlizMezhGorodSNDS> GetStavkiBlizMezhGorodSNDS()
-        {
-            return unitOfWork.BlizMezhGorodSNDS.GetAll();
-        }
+        public IEnumerable<BlizMezhGorodSNDS> GetStavkiBlizMezhGorodSNDS() => unitOfWork.BlizMezhGorodSNDS.GetAll();
 
         [HttpGet("Stavki/BlizMezhGorod")]
         public IEnumerable<BlizMezhGorodSNDS> GetStavkiBlizMezhGorod()
         {
-            var a = unitOfWork.BlizMezhGorodSNDS.GetAll().ToList();
+            var allBliz = unitOfWork.BlizMezhGorodSNDS.GetAll().ToList();
 
-            foreach (var e in a)
+            foreach (var city in allBliz)
             {
-                e.Ft20 = (int)(e.Ft20 * 0.8);
-                e.Ft40 = (int)(e.Ft40 * 0.8);
-                e.Ot24Do30Tn = (int)(e.Ot24Do30Tn * 0.8);
+                city.Ft20 = (int)(city.Ft20 * 0.8);
+                city.Ft40 = (int)(city.Ft40 * 0.8);
+                city.Ot24Do30Tn = (int)(city.Ot24Do30Tn * 0.8);
             }
 
-            return a;
+            return allBliz;
         }
 
         [HttpGet("Stavki/MezhgorodSNDS")]
-        public IEnumerable<MezhgorodSNDS> GetStavkiMezhgorodSNDS()
-        {
-            return unitOfWork.MezhgorodSNDS.GetAll();
-        }
+        public IEnumerable<MezhgorodSNDS> GetStavkiMezhgorodSNDS() => unitOfWork.MezhgorodSNDS.GetAll();
 
         [HttpGet("Stavki/Mezhgorod")]
         public IEnumerable<MezhgorodSNDS> GetStavkiMezhgorod()
         {
-            var a = unitOfWork.MezhgorodSNDS.GetAll().ToList();
+            var allMezh = unitOfWork.MezhgorodSNDS.GetAll().ToList();
 
-            foreach (var e in a)
+            foreach (var city in allMezh)
             {
-                e.Ot27 = e.Ot27 is null ? 0 : (int)(e.Ot27 * 0.8);
-                e.Do24 = e.Do24 is null ? 0 : (int)(e.Ot27 * 0.8);
-                e.Ot24Do27 = e.Ot24Do27 is null ? 0 : (int)(e.Ot27 * 0.8);
+                city.Ot27 = city.Ot27 is null ? 0 : (int)(city.Ot27 * 0.8);
+                city.Do24 = city.Do24 is null ? 0 : (int)(city.Ot27 * 0.8);
+                city.Ot24Do27 = city.Ot24Do27 is null ? 0 : (int)(city.Ot27 * 0.8);
             }
 
-            return a;
+            return allMezh;
         }
 
         [HttpGet("Stavki/GetAllPuncts")]
         public IEnumerable<string> GetAllPuncts()
         {
-            var a = new List<string>();
+            var allPuncts = new List<string>();
 
-            var a1 = unitOfWork.BlizMezhGorodSNDS.GetAll().Select(x => x.City);
-            var a2 = unitOfWork.MezhgorodSNDS.GetAll().Select(x => x.City);
+            var allBliz = unitOfWork.BlizMezhGorodSNDS.GetAll().Select(x => x.City);
+            var allMezh = unitOfWork.MezhgorodSNDS.GetAll().Select(x => x.City);
 
-            a.AddRange(a1);
-            a.AddRange(a2);
+            allPuncts.AddRange(allBliz);
+            allPuncts.AddRange(allMezh);
 
-            return a;
+            return allPuncts;
         }
 
         [HttpPost("Requests/AddRequest")]
-        public void AddRequest(Request a)
-        {
-            //var a = new Request()
-            //{
-            //    RequestNumber = 2,
-            //    Status = RequestStatusEnum.InProgress,
-            //    DepartureCity = "Екатеринбург",
-            //    ArrivalCity = "Пермь",
-            //    ContainerSize = 40,
-            //    CargoWeight = 25,
-            //    Price = 41617,
-            //    DepartureDate = "4.01.23",
-            //    RequestCreateDate = "28.12.22",
-            //    Comment = "Хрупкий груз!!!!",
-            //    ClientId = 2
-            //};
-
-
-            unitOfWork.Requests.Add(a);
-        }
+        public void AddRequest(Request a) => unitOfWork.Requests.Add(a);
 
         [HttpGet("Requests/GetAllRequests")]
-        public IEnumerable<Request> GetAllRequests()
-        {
-            var a = unitOfWork.Requests.GetAll();
-
-            return unitOfWork.Requests.GetAll();
-        }
+        public IEnumerable<Request> GetAllRequests() => unitOfWork.Requests.GetAll();
 
         [HttpPost("Requests/GetAllRequestsByClientId")]
-        public IEnumerable<Request> GetAllRequestsByClientId(int clientId)
-        {
-            return unitOfWork.Requests.GetAll().Where(x => x.ClientId == clientId);
-        }
-
-
-        // Пример ссылки -- https://https://localhost:5001/Api/DAL/Requests/GetRequestSum?weight=28&city=Златоуст
+        public IEnumerable<Request> GetAllRequestsByClientId(int clientId) => unitOfWork.Requests.GetAll().Where(x => x.ClientId == clientId);
 
         [HttpPost("Requests/GetRequestSum")]
         public float GetRequestSum(int weight, string city)
@@ -217,8 +132,6 @@ namespace StavkiWebApi.Controllers
             return result ??= 0;
         }
 
-
-        // пример ссылки -- https://localhost:5001/Api/DAL/Requests/ChangeStatus?id=0&status=0
         //Значения status 
         // 0 - Created
         // 1 - InProgress
@@ -237,5 +150,11 @@ namespace StavkiWebApi.Controllers
 
             return true;
         }
+
+        [HttpGet("Clients/GetAll")]
+        public IEnumerable<Client> GetAllClients() => unitOfWork.Clients.GetAll();
+
+        [HttpPost("Clients/GetClientById")]
+        public Client GetClientById(int id) => unitOfWork.Clients.GetById(id);
     }
 }

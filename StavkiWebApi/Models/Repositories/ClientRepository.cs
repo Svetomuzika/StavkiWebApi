@@ -16,7 +16,7 @@ namespace StavkiWebApi.Models.Repositories
 
         public IEnumerable<Client> GetAll()
         {
-            return DBContext.Clients;
+            return DBContext.Clients.Include(x => x.Requests);
         }
 
         public void Add(Client client)
@@ -61,6 +61,11 @@ namespace StavkiWebApi.Models.Repositories
             var password = data.Split(new char[] { '/' }).Last();
 
             return GetAll().Where(x => x.Login == login && x.Password == password).SingleOrDefault();
+        }
+
+        public Client GetById(int id)
+        {
+            return DBContext.Clients.Include(x => x.Requests).Where(x => x.Id == id).SingleOrDefault();
         }
     }
 }

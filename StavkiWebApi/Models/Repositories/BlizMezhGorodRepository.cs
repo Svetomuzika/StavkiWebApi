@@ -18,29 +18,34 @@ namespace StavkiWebApi.Models.Repositories
             return DBContext.BlizMezhGorodSNDS;
         }
 
-        BlizMezhGorodSNDS IRepository<BlizMezhGorodSNDS>.Auth(string data)
+        public BlizMezhGorodSNDS Auth(string data)
         {
             throw new NotImplementedException();
         }
 
-        void IRepository<BlizMezhGorodSNDS>.Add(BlizMezhGorodSNDS item)
+        public void Add(BlizMezhGorodSNDS item)
         {
             throw new NotImplementedException();
         }
 
-        bool IRepository<BlizMezhGorodSNDS>.CreateAccount(Client item)
+        public bool CreateAccount(Client item)
         {
             throw new NotImplementedException();
         }
 
-        void IRepository<BlizMezhGorodSNDS>.Delete(BlizMezhGorodSNDS item)
+        public void Delete(BlizMezhGorodSNDS item)
         {
             throw new NotImplementedException();
         }
 
-        void IRepository<BlizMezhGorodSNDS>.Update(BlizMezhGorodSNDS item)
+        public void Update(BlizMezhGorodSNDS item)
         {
             throw new NotImplementedException();
+        }
+
+        public BlizMezhGorodSNDS GetById(int id)
+        {
+            return DBContext.BlizMezhGorodSNDS.Find(id);
         }
     }
 }

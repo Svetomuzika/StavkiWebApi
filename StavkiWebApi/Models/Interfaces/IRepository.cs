@@ -8,6 +8,8 @@ namespace StavkiWebApi.Models.Interfaces
 
         void Add(T item);
 
+        T GetById(int id);
+
         bool CreateAccount(Client item);
 
         void Update(T item);
