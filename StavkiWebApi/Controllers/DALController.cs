@@ -29,7 +29,7 @@ namespace StavkiWebApi.Controllers
         public bool CreateClient(Client a)
         {
             var c = a.ToString();
-            var a = JsonConvert.DeserializeObject<Client>(c);
+            a = JsonConvert.DeserializeObject<Client>(c);
 
             return unitOfWork.Clients.CreateAccount(a);
 
@@ -168,6 +168,8 @@ namespace StavkiWebApi.Controllers
         [HttpGet("Requests/GetAllRequests")]
         public IEnumerable<Request> GetAllRequests()
         {
+            var a = unitOfWork.Requests.GetAll();
+
             return unitOfWork.Requests.GetAll();
         }
 

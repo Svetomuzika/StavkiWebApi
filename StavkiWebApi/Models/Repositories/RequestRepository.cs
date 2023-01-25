@@ -16,7 +16,7 @@ namespace StavkiWebApi.Models.Repositories
 
         public IEnumerable<Request> GetAll()
         {
-            return DBContext.Requests;
+            return DBContext.Requests.Include(x => x.Client);
         }
 
         public void Add(Request item)
