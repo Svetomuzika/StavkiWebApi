@@ -29,6 +29,8 @@ namespace StavkiWebApi.Models.Entites
 
         public int ClientId { get; set; }
 
+        public string Responsible { get; set; }
+
         public Client Client { get; set; }
     }
 }
