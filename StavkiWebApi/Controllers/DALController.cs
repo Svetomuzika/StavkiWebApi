@@ -89,14 +89,28 @@ namespace StavkiWebApi.Controllers
         }
 
         [HttpPost("Requests/AddRequest")]
-        public void AddRequest(RequestDomain a) 
+        public void AddRequest(RequestDomain req) 
         {
-            var client = unitOfWork.Clients.GetById(a.ClientId);
+            var client = unitOfWork.Clients.GetById(req.ClientId);
 
-            Request req = (Request)a;
-            req.Client = client;
+            Request request = new()
+            {
+                Client = client,
+                Id = req.Id,
+                RequestNumber = req.RequestNumber,
+                Status = req.Status,
+                DepartureCity = req.DepartureCity,
+                ArrivalCity = req.ArrivalCity,
+                ContainerSize = req.ContainerSize,
+                CargoWeight = req.CargoWeight,
+                Price = req.Price,
+                DepartureDate = req.DepartureDate,
+                RequestCreateDate = req.RequestCreateDate,
+                Comment = req.Comment,
+                ClientId = req.ClientId,
+            };
 
-            unitOfWork.Requests.Add(req);
+            unitOfWork.Requests.Add(request);
         }
 
         [HttpGet("Requests/GetAllRequests")]
