@@ -17,7 +17,7 @@ namespace StavkiWebApi.Controllers
         [HttpGet("Auth/Client")] //login = "login/password"
         public Client AuthClient(string data) => unitOfWork.Clients.Auth(data);
 
-        [HttpPost("Auth/Client/Create")]
+        [HttpGet("Auth/Client/Create")]
         public bool CreateClient(string a) => unitOfWork.Clients.CreateAccount(JsonConvert.DeserializeObject<Client>(a));
 
         [HttpGet("Stavki/GorodSNDS")]
@@ -97,7 +97,7 @@ namespace StavkiWebApi.Controllers
         [HttpPost("Requests/GetAllRequestsByClientId")]
         public IEnumerable<Request> GetAllRequestsByClientId(int clientId) => unitOfWork.Requests.GetAll().Where(x => x.ClientId == clientId);
 
-        [HttpPost("Requests/GetRequestSum")]
+        [HttpGet("Requests/GetRequestSum")]
         public float GetRequestSum(int weight, string city)
         {
             var gorod = unitOfWork.Gorod.GetAll();
@@ -154,7 +154,7 @@ namespace StavkiWebApi.Controllers
         [HttpGet("Clients/GetAll")]
         public IEnumerable<Client> GetAllClients() => unitOfWork.Clients.GetAll();
 
-        [HttpPost("Clients/GetClientById")]
+        [HttpGet("Clients/GetClientById")]
         public Client GetClientById(int id) => unitOfWork.Clients.GetById(id);
     }
 }
