@@ -89,7 +89,15 @@ namespace StavkiWebApi.Controllers
         }
 
         [HttpPost("Requests/AddRequest")]
-        public void AddRequest(Request a) => unitOfWork.Requests.Add(a);
+        public void AddRequest(RequestDomain a) 
+        {
+            var client = unitOfWork.Clients.GetById(a.ClientId);
+
+            Request req = (Request)a;
+            req.Client = client;
+
+            unitOfWork.Requests.Add(req);
+        }
 
         [HttpGet("Requests/GetAllRequests")]
         public IEnumerable<Request> GetAllRequests() => unitOfWork.Requests.GetAll();
