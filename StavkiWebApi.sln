@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32630.192
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StavkiWebApi", "StavkiWebApi\StavkiWebApi.csproj", "{0EE2DD57-0F2B-4874-9134-F6D51953706B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StavkiWebApi", "StavkiWebApi\StavkiWebApi.csproj", "{0EE2DD57-0F2B-4874-9134-F6D51953706B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Stavki.Infrastructure", "Stavki.Infrastructure\Stavki.Infrastructure.csproj", "{414C82FA-0B6E-41CF-9F23-3985ABA56200}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stavki.Data", "Stavki.Data\Stavki.Data.csproj", "{D1876FD0-6112-4E29-854C-CBC23327B4E2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{0EE2DD57-0F2B-4874-9134-F6D51953706B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0EE2DD57-0F2B-4874-9134-F6D51953706B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0EE2DD57-0F2B-4874-9134-F6D51953706B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{414C82FA-0B6E-41CF-9F23-3985ABA56200}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{414C82FA-0B6E-41CF-9F23-3985ABA56200}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{414C82FA-0B6E-41CF-9F23-3985ABA56200}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{414C82FA-0B6E-41CF-9F23-3985ABA56200}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D1876FD0-6112-4E29-854C-CBC23327B4E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D1876FD0-6112-4E29-854C-CBC23327B4E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D1876FD0-6112-4E29-854C-CBC23327B4E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D1876FD0-6112-4E29-854C-CBC23327B4E2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
