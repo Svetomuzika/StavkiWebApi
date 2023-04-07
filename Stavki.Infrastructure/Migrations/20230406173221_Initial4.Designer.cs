@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Stavki.Infrastructure.EF;
 
@@ -11,9 +12,11 @@ using Stavki.Infrastructure.EF;
 namespace Stavki.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20230406173221_Initial4")]
+    partial class Initial4
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -93,122 +96,6 @@ namespace Stavki.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Requests", (string)null);
-                });
-
-            modelBuilder.Entity("Stavki.Infrastructure.EF.Domains.Stavki.InCityDomain", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("City")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("Distance")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("From24UpTo27Tons")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("From27Tons")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("UpTo24Tons")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("InCity", (string)null);
-                });
-
-            modelBuilder.Entity("Stavki.Infrastructure.EF.Domains.Stavki.InCityNDSDomain", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("City")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("Distance")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("From24UpTo27Tons")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("From27Tons")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("UpTo24Tons")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("InCityNDS", (string)null);
-                });
-
-            modelBuilder.Entity("Stavki.Infrastructure.EF.Domains.Stavki.NearInCityDomain", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("City")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("Distance")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("Feet20")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("Feet40")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("From24UpTo30Tons")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("NearInCity", (string)null);
-                });
-
-            modelBuilder.Entity("Stavki.Infrastructure.EF.Domains.Stavki.NearInCityNDSDomain", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("City")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("Distance")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("Feet20")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("Feet40")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("From24UpTo30Tons")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("NearInCityNDS", (string)null);
                 });
 
             modelBuilder.Entity("Stavki.Infrastructure.EF.Domains.UserDataDomain", b =>

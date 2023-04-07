@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Stavki.Data.Data
+﻿namespace Stavki.Data.Data
 {
-    internal class UserInfo
+    public class UserInfo
     {
+        public string Email { get; set; }
+
+        public string Pass { get; set; }
     }
 }

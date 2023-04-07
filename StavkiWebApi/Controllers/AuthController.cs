@@ -1,19 +1,14 @@
-using Azure.Core;
+using System.Web.Http;
+using System.Web.Http.Results;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 using Stavki.Data.Data;
-using Stavki.Infrastructure;
 using Stavki.Infrastructure.EF.Domains;
-using Stavki.Infrastructure.EF.EF;
-using Stavki.Infrastructure.Enums;
-using Stavki.Infrastructure.Services;
 using Stavki.Infrastructure.Services.Interfaces;
 
 namespace StavkiWebApi.Controllers
 {
-    [ApiController]
-    [Route("api/auth")]
-    public class AuthController : ControllerBase
+    [RoutePrefix("api/auth")]
+    public class AuthController : ApiController
     {
         private readonly IAuthService _authService;
 
@@ -22,10 +17,21 @@ namespace StavkiWebApi.Controllers
             _authService = authService;
         }
         
-        [HttpPost("signIn")]
-        public UserDomain SignIn(UserDataDomain userData) => _authService.SignIn(userData);
+        [Microsoft.AspNetCore.Mvc.HttpPost("api/signIn")]
+        public UserDomain SignIn(UserInfo userInfo) => _authService.SignIn(userInfo);
 
-        [HttpPost("singUp")]
-        public UserDomain SingUp(UserDataDomain userData) => _authService.SignUp(userData);
+        [Microsoft.AspNetCore.Mvc.HttpPost("api/singUp")]
+        public IHttpActionResult SingUp(UserDomain user)
+        {
+            try
+            {
+                _authService.SignUp(user);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return new BadRequestErrorMessageResult(ex.Message, this);
+            }
+        }
     }
 }

@@ -4,7 +4,7 @@ namespace Stavki.Infrastructure.EF.Domains
 {
     public class UserDataDomain : BaseDomain
     {
-        public string Email { get; set; }
+        public int UserId { get; set; }
 
         public string Pass { get; set; }
     }

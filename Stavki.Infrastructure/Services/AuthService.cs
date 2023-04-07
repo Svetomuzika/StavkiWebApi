@@ -8,30 +8,21 @@ namespace Stavki.Infrastructure.Services
     public class AuthService : IAuthService
     {
         private readonly IRepository<UserDomain> _userRepository;
-        private readonly IRepository<UserDataDomain> _userDataRepository;
 
-        public AuthService(IRepository<UserDomain> userRepository, IRepository<UserDataDomain> userDataRepository)
+        public AuthService(IRepository<UserDomain> userRepository)
         {
             _userRepository = userRepository;
-            _userDataRepository = userDataRepository;
         }
 
-        public UserDomain SignIn(UserDataDomain userData)
+        public UserDomain SignIn(UserInfo userInfo) => _userRepository.Get(data => data.Email == userInfo.Email)
+            .SingleOrDefault(user => user.UserData.Pass == userInfo.Pass);
+
+        public void SignUp(UserDomain user)
         {
-            if(_userDataRepository.Get(data => data.Email == userData.Email).SingleOrDefault()?.Pass == userData.Pass)
-                return _userRepository.Get(user => user.Email == userData.Email).SingleOrDefault();
+            if (_userRepository.Get(data => data.Email == user.Email).Any())
+                throw new Exception("Почта уже зарегестрирована");
 
-            return null;
-            //string someString = Encoding.ASCII.GetString(bytes);
-        }
-
-        public UserDomain SignUp(UserDataDomain userData)
-        {
-            if (_userDataRepository.Get(data => data.Email == userData.Email).SingleOrDefault()?.Pass == userData.Pass)
-                return _userRepository.Get(user => user.Email == userData.Email).SingleOrDefault();
-
-            return null;
-            //string someString = Encoding.ASCII.GetString(bytes);
+            _userRepository.Create(user);
         }
     }
 }
