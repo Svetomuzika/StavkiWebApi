@@ -1,5 +1,3 @@
-using System.Web.Http;
-using System.Web.Http.Results;
 using Microsoft.AspNetCore.Mvc;
 using Stavki.Data.Data;
 using Stavki.Infrastructure.EF.Domains;
@@ -7,8 +5,8 @@ using Stavki.Infrastructure.Services.Interfaces;
 
 namespace StavkiWebApi.Controllers
 {
-    [RoutePrefix("api/auth")]
-    public class AuthController : ApiController
+    [Route("api/auth")]
+    public class AuthController : ControllerBase
     {
         private readonly IAuthService _authService;
 
@@ -16,21 +14,30 @@ namespace StavkiWebApi.Controllers
         {
             _authService = authService;
         }
-        
-        [Microsoft.AspNetCore.Mvc.HttpPost("api/signIn")]
-        public UserDomain SignIn(UserInfo userInfo) => _authService.SignIn(userInfo);
 
-        [Microsoft.AspNetCore.Mvc.HttpPost("api/singUp")]
-        public IHttpActionResult SingUp(UserDomain user)
+        [HttpPost("singIn")]
+        public IActionResult SignIn(ShortUserInfo userInfo)
         {
             try
             {
-                _authService.SignUp(user);
-                return Ok();
+                return Ok(_authService.SignIn(userInfo));
             }
             catch (Exception ex)
             {
-                return new BadRequestErrorMessageResult(ex.Message, this);
+                return new BadRequestObjectResult(ex.Message);
+            }
+        }
+
+        [HttpPost("singUn")]
+        public IActionResult SingUp(UserInfo user)
+        {
+            try
+            {
+                return Ok(_authService.SignUp(user));
+            }
+            catch (Exception ex)
+            {
+                return new BadRequestObjectResult(ex.Message);
             }
         }
     }

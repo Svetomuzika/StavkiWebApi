@@ -1,12 +1,4 @@
-﻿using Azure.Core;
-using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
-using Stavki.Data.Data;
-using Stavki.Infrastructure;
-using Stavki.Infrastructure.EF.Domains;
-using Stavki.Infrastructure.EF.EF;
-using Stavki.Infrastructure.Enums;
-using Stavki.Infrastructure.Services;
+﻿using Microsoft.AspNetCore.Mvc;
 using Stavki.Infrastructure.Services.Interfaces;
 
 

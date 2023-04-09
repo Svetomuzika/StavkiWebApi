@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Stavki.Data.Enums;
 using Stavki.Infrastructure.EF.Domains;
-using Stavki.Infrastructure.Enums;
 using Stavki.Infrastructure.Services.Interfaces;
 
 namespace StavkiWebApi.Controllers
@@ -31,7 +31,7 @@ namespace StavkiWebApi.Controllers
         [HttpGet("getRequestSum")]
         public float GetRequestSum(int weight, string city)
         {
-            //var gorod = unitOfWork.Gorod.GetAll();
+//var gorod = unitOfWork.Gorod.GetAll();
             //var bliz = unitOfWork.BlizMezhGorodSNDS.GetAll();
             //var mezh = unitOfWork.MezhgorodSNDS.GetAll();
             //float? result = 0;

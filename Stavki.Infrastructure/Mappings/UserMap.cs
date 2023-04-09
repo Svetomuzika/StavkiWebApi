@@ -9,6 +9,9 @@ namespace Stavki.Infrastructure.Mappings
         public void Configure(EntityTypeBuilder<UserDomain> builder)
         {
             builder.ToTable("Users").HasKey(p => p.Id);
+
+            builder.HasOne(x => x.UserData)
+                .WithOne(c => c.User).HasForeignKey<UserDataDomain>(x => x.UserId);
         }
     }
 }

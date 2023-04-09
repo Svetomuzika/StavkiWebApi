@@ -1,8 +1,7 @@
-using System;
-using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using Microsoft.EntityFrameworkCore;
 using Stavki.Infrastructure.Autofac;
 using Stavki.Infrastructure.EF;
 
@@ -18,9 +17,14 @@ builder.Services.AddControllers().AddJsonOptions(options =>
     options.JsonSerializerOptions.WriteIndented = true;
 });
 
+builder.Services.AddDbContext<ApplicationContext>(options => options
+    .UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory())
+    .ConfigureContainer<ContainerBuilder>(builder => builder.RegisterModule(new AutofacModules()));
+
 builder.Services.AddAuthentication("Bearer").AddJwtBearer();
-builder.Services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-builder.Services.AddEndpointsApiExplorer();
+
 builder.Services.AddCors(options => {
     options.AddPolicy("AllowAll",
         builder =>
@@ -32,24 +36,14 @@ builder.Services.AddCors(options => {
         });
 });
 
-var containerBuilder = new ContainerBuilder(); 
-containerBuilder.RegisterModule(new AutofacModules());
-var container = containerBuilder.Build();
-
-builder.Services.AddSingleton<IServiceProviderFactory<ContainerBuilder>>(new AutofacServiceProviderFactory());
-builder.Services.AddSingleton(container);
-
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+app.UseSwagger();
+app.UseSwaggerUI(c =>
 {
-    app.UseSwagger();
-    app.UseSwaggerUI(c =>
-    {
-        c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
-    });
-}
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+});
+
 app.UseDeveloperExceptionPage();
 app.UseCors("AllowAll");
 

@@ -1,5 +1,5 @@
-﻿using Stavki.Infrastructure.EF.Domains.Base;
-using Stavki.Infrastructure.Enums;
+﻿using Stavki.Data.Enums;
+using Stavki.Infrastructure.EF.Domains.Base;
 
 namespace Stavki.Infrastructure.EF.Domains
 {

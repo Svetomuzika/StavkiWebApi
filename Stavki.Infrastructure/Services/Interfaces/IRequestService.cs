@@ -1,6 +1,6 @@
 ﻿using Stavki.Data.Data;
 using Stavki.Infrastructure.EF.Domains;
-using Stavki.Infrastructure.Enums;
+using Stavki.Data.Enums;
 
 namespace Stavki.Infrastructure.Services.Interfaces
 {

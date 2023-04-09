@@ -1,4 +1,4 @@
-﻿namespace Stavki.Infrastructure.Enums
+﻿namespace Stavki.Data.Enums
 {
     public enum RequestStatus
     {

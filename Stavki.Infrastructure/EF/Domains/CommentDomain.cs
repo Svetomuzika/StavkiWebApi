@@ -1,11 +1,10 @@
-﻿using Stavki.Infrastructure.EF.Domains.Base;
-using Stavki.Infrastructure.Enums;
+﻿using Stavki.Data.Enums;
+using Stavki.Infrastructure.EF.Domains.Base;
 
 namespace Stavki.Infrastructure.EF.Domains
 {
     public class CommentDomain : BaseDomain
     {
-
         public int RequestId { get; set; }
 
         public int UserId { get; set; }

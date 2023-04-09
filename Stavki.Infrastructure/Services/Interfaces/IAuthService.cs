@@ -5,7 +5,7 @@ namespace Stavki.Infrastructure.Services.Interfaces
 {
     public interface IAuthService
     {
-        UserDomain SignIn(UserInfo userData);
-        void SignUp(UserDomain userData);
+        UserInfo SignIn(ShortUserInfo userData);
+        UserInfo SignUp(UserInfo userData);
     }
 }

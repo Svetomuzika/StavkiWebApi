@@ -1,6 +1,5 @@
 ﻿using System.Reflection;
 using Microsoft.EntityFrameworkCore;
-using Stavki.Infrastructure.EF.Domains;
 
 namespace Stavki.Infrastructure.EF
 {

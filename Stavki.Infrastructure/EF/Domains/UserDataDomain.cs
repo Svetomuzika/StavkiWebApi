@@ -7,5 +7,7 @@ namespace Stavki.Infrastructure.EF.Domains
         public int UserId { get; set; }
 
         public string Pass { get; set; }
+
+        public UserDomain User { get; set; }
     }
 }
