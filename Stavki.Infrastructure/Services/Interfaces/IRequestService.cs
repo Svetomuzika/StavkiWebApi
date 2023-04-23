@@ -1,6 +1,6 @@
 ﻿using Stavki.Data.Data;
+using Stavki.Data.Data.Enums;
 using Stavki.Infrastructure.EF.Domains;
-using Stavki.Data.Enums;
 
 namespace Stavki.Infrastructure.Services.Interfaces
 {
@@ -13,5 +13,11 @@ namespace Stavki.Infrastructure.Services.Interfaces
         List<RequestDomain> GetRequests();
 
         List<RequestDomain> GetRequestsByUserId(int userId);
+
+        List<ShortCityInfo> GetAllCities();
+
+        int? GetRequestSum(int weight, string city, bool nds, CityType type);
+
+        RequestDomain AddComment(CommentInfo comment);
     }
 }

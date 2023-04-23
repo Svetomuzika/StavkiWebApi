@@ -1,4 +1,5 @@
-﻿using Stavki.Data.Enums;
+﻿using System.ComponentModel.DataAnnotations;
+using Stavki.Data.Data.Enums;
 using Stavki.Infrastructure.EF.Domains.Base;
 
 namespace Stavki.Infrastructure.EF.Domains
@@ -21,7 +22,7 @@ namespace Stavki.Infrastructure.EF.Domains
 
         public DateTime RequestCreateDate { get; set; }
 
-        public List<CommentDomain> Comments { get; set; }
+        public List<CommentDomain> Comments { get; set; } = new List<CommentDomain>();
 
         public int UserId { get; set; }
     }

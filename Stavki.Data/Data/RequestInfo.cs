@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Stavki.Data.Data
 {
-    internal class RequestInfo
+    public class RequestInfo
     {
     }
 }

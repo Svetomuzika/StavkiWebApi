@@ -14,8 +14,8 @@ namespace Stavki.Infrastructure.Autofac
             builder.RegisterType<ApplicationContext>().As<DbContext>().InstancePerLifetimeScope();
             builder.RegisterGeneric(typeof(Repository<>)).As(typeof(IRepository<>)).InstancePerLifetimeScope();
             builder.RegisterType<AuthService>().As<IAuthService>();
-            builder.RegisterType<RequestService>().As<IRequestService>().InstancePerRequest();
-            builder.RegisterType<CalcService>().As<ICalcService>().InstancePerRequest();
+            builder.RegisterType<RequestService>().As<IRequestService>();
+            builder.RegisterType<CalcService>().As<ICalcService>();
         }
     }
 }

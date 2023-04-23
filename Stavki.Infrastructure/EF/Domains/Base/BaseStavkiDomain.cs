@@ -8,7 +8,7 @@ namespace Stavki.Infrastructure.EF.Domains.Base
 {
     public class BaseStavkiDomain : BaseDomain
     {
-        public string City { get; set; }
+        public string? City { get; set; }
 
         public int? Distance { get; set; }
     }

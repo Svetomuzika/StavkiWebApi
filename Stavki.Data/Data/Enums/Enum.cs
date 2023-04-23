@@ -1,4 +1,4 @@
-﻿namespace Stavki.Data.Enums
+﻿namespace Stavki.Data.Data.Enums
 {
     public enum RequestStatus
     {
@@ -11,5 +11,10 @@
     {
         Employee = 0,
         Client = 1,
+    }
+    public enum CityType
+    {
+        NearInCity = 0,
+        InCity = 1,
     }
 }

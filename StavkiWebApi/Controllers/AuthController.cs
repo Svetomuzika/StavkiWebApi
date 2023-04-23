@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
 using Stavki.Data.Data;
-using Stavki.Infrastructure.EF.Domains;
 using Stavki.Infrastructure.Services.Interfaces;
 
 namespace StavkiWebApi.Controllers
@@ -15,7 +14,7 @@ namespace StavkiWebApi.Controllers
             _authService = authService;
         }
 
-        [HttpPost("singIn")]
+        [HttpPost("signIn")]
         public IActionResult SignIn(ShortUserInfo userInfo)
         {
             try
@@ -28,7 +27,7 @@ namespace StavkiWebApi.Controllers
             }
         }
 
-        [HttpPost("singUn")]
+        [HttpPost("singUp")]
         public IActionResult SingUp(UserInfo user)
         {
             try

@@ -1,4 +1,4 @@
-﻿using Stavki.Data.Enums;
+﻿using Stavki.Data.Data.Enums;
 using Stavki.Infrastructure.EF.Domains.Base;
 
 namespace Stavki.Infrastructure.EF.Domains

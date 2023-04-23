@@ -1,4 +1,4 @@
-﻿using Stavki.Data.Enums;
+﻿using Stavki.Data.Data.Enums;
 using Stavki.Infrastructure.EF.Domains.Base;
 
 namespace Stavki.Infrastructure.EF.Domains
@@ -17,11 +17,11 @@ namespace Stavki.Infrastructure.EF.Domains
 
         public string INN { get; set; }
 
-        public string KPP { get; set; }
+        public string? KPP { get; set; }
 
-        public string OGRN { get; set; }
+        public string? OGRN { get; set; }
 
-        public string OKPO { get; set; }
+        public string? OKPO { get; set; }
 
         public DataSourceType DataSourceType { get; set; }
 

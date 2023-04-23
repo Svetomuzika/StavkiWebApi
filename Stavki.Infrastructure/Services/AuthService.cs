@@ -1,5 +1,4 @@
 ﻿using Stavki.Data.Data;
-using Stavki.Data.Enums;
 using Stavki.Infrastructure.EF.Domains;
 using Stavki.Infrastructure.EF.EF;
 using Stavki.Infrastructure.Services.Interfaces;
@@ -28,22 +27,7 @@ namespace Stavki.Infrastructure.Services
             if (user == null)
                 throw new Exception("Неверный пароль");
 
-            var userInfo = new UserInfo()
-            {
-                Email = user.Email,
-                Name = user.Name,
-                Surname = user.Surname,
-                DataSourceType = user.DataSourceType,
-                PhoneNumber = user.PhoneNumber,
-                INN = user.INN,
-                CompanyName = user.CompanyName,
-                OGRN = user.OGRN,
-                OKPO = user.OKPO,
-                KPP = user.KPP,
-                Id = user.Id
-            };
-
-            return userInfo;
+            return user.MapToUserInfo();
         } 
 
         public UserInfo SignUp(UserInfo user)
@@ -51,23 +35,7 @@ namespace Stavki.Infrastructure.Services
             if (_userRepository.Get(data => data.Email == user.Email).Any())
                 throw new Exception("Почта уже зарегестрирована");
 
-            var userDomain = new UserDomain()
-            {
-                Email = user.Email,
-                Name = user.Name,
-                Surname = user.Surname,
-                DataSourceType = DataSourceType.Client,
-                PhoneNumber = user.PhoneNumber,
-                INN = user.INN,
-                CompanyName = user.CompanyName,
-                OGRN = user.OGRN,
-                OKPO = user.OKPO,
-                KPP = user.KPP,
-                UserData = new UserDataDomain
-                {
-                    Pass = user.Pass
-                }
-            };
+            var userDomain = user.MapToUserDomain();
 
             _userRepository.Create(userDomain);
 

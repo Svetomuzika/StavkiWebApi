@@ -1,4 +1,4 @@
-﻿using Stavki.Data.Enums;
+﻿using Stavki.Data.Data.Enums;
 
 namespace Stavki.Data.Data
 {
