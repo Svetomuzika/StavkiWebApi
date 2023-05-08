@@ -26,5 +26,7 @@ namespace Stavki.Infrastructure.EF.Domains
         public DataSourceType DataSourceType { get; set; }
 
         public UserDataDomain UserData{ get; set; }
+
+        public List<RequestDomain> Requests { get; set; }
     }
 }

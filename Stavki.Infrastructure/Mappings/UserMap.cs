@@ -12,6 +12,10 @@ namespace Stavki.Infrastructure.Mappings
 
             builder.HasOne(x => x.UserData)
                 .WithOne(c => c.User).HasForeignKey<UserDataDomain>(x => x.UserId);
+
+            builder.HasMany(x => x.Requests)
+                .WithOne(x => x.User)
+                .HasForeignKey(x => x.UserId);
         }
     }
 }

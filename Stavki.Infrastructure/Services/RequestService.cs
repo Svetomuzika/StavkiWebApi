@@ -36,7 +36,7 @@ namespace Stavki.Infrastructure.Services
 
         public void CreateRequest(RequestDomain req) => _requestRepository.Create(req);
 
-        public List<RequestDomain> GetRequests() => _requestRepository.Get();
+        public List<RequestDomain> GetRequests() => _requestRepository.GetWithInclude(x => x.User).ToList();
 
         public List<RequestDomain> GetRequestsByUserId(int userId) => _requestRepository.Get(req => req.UserId == userId);
 

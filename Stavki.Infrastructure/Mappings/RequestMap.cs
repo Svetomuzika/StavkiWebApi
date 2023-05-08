@@ -9,6 +9,7 @@ namespace Stavki.Infrastructure.Mappings
         public void Configure(EntityTypeBuilder<RequestDomain> builder)
         {
             builder.ToTable("Requests").HasKey(p => p.Id);
+
         }
     }
 }

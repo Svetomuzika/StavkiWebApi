@@ -25,5 +25,7 @@ namespace Stavki.Infrastructure.EF.Domains
         public List<CommentDomain> Comments { get; set; } = new List<CommentDomain>();
 
         public int UserId { get; set; }
+
+        public UserDomain? User { get; set; }
     }
 }
