@@ -36,17 +36,25 @@ namespace Stavki.Infrastructure.Services
             if (_userRepository.Get(data => data.Email == user.Email).Any())
                 throw new Exception("Почта уже зарегестрирована");
 
-            using (var httpClient = new HttpClient())
+            if(string.IsNullOrEmpty(user.INN))
+                throw new Exception("Не указан ИНН юр. Лица");
+
+            try
             {
-                using var response = 
-                    httpClient.GetAsync($"https://api-fns.ru/api/egr?req={user.INN}&key=c96daa40a0717105e4fcde3581abd5823d5762b1");
+                using var httpClient = new HttpClient();
+                    using var response =
+                        httpClient.GetAsync($"https://api-fns.ru/api/egr?req={user.INN}&key=c96daa40a0717105e4fcde3581abd5823d5762b1");
 
                 var apiResponse = response.Result.Content.ReadAsStringAsync().Result;
                 var entity = (JObject)JObject.Parse(apiResponse)["items"].First["ЮЛ"];
 
-                user.KPP = (string)entity["КПП"];
+                user.KPP = (string)entity?["КПП"];
                 user.OGRN = (string)entity["ОГРН"];
                 user.CompanyName = (string)entity["НаимСокрЮЛ"];
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Указан неверный ИНН юр. Лица");
             }
 
             var userDomain = user.MapToUserDomain();
