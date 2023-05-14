@@ -1,4 +1,5 @@
-﻿using Stavki.Data.Data;
+﻿using Newtonsoft.Json.Linq;
+using Stavki.Data.Data;
 using Stavki.Infrastructure.EF.Domains;
 using Stavki.Infrastructure.EF.EF;
 using Stavki.Infrastructure.Services.Interfaces;
@@ -35,8 +36,20 @@ namespace Stavki.Infrastructure.Services
             if (_userRepository.Get(data => data.Email == user.Email).Any())
                 throw new Exception("Почта уже зарегестрирована");
 
-            var userDomain = user.MapToUserDomain();
+            using (var httpClient = new HttpClient())
+            {
+                using var response = 
+                    httpClient.GetAsync($"https://api-fns.ru/api/egr?req={user.INN}&key=c96daa40a0717105e4fcde3581abd5823d5762b1");
 
+                var apiResponse = response.Result.Content.ReadAsStringAsync().Result;
+                var entity = (JObject)JObject.Parse(apiResponse)["items"].First["ЮЛ"];
+
+                user.KPP = (string)entity["КПП"];
+                user.OGRN = (string)entity["ОГРН"];
+                user.CompanyName = (string)entity["НаимСокрЮЛ"];
+            }
+
+            var userDomain = user.MapToUserDomain();
             _userRepository.Create(userDomain);
 
             user.Id = userDomain.Id;
