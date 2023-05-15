@@ -1,4 +1,5 @@
-﻿using Stavki.Infrastructure.EF.Domains.Stavki;
+﻿using Stavki.Data.Data;
+using Stavki.Infrastructure.EF.Domains.Stavki;
 
 namespace Stavki.Infrastructure.Services.Interfaces
 {
@@ -11,5 +12,7 @@ namespace Stavki.Infrastructure.Services.Interfaces
         public List<InCityNDSDomain> GetStavkiInCityNDS();
 
         public List<InCityDomain> GetStavkiInCity();
+
+        bool UpdateStavka(GeneralStavka stavka);
     }
 }

@@ -16,5 +16,7 @@
     {
         NearInCity = 0,
         InCity = 1,
+        NearInCityNDS = 3,
+        InCityNDS = 4
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Stavki.Data.Data;
 using Stavki.Infrastructure.EF.Domains.Stavki;
 using Stavki.Infrastructure.Services.Interfaces;
 
@@ -38,6 +39,12 @@ namespace StavkiWebApi.Controllers
         public List<NearInCityNDSDomain> GetStavkiNearInCityNDS()
         {
             return _calcService.GetStavkiNearInCityNDS();
+        }
+
+        [HttpPut("UpdateStavka")]
+        public bool UpdateStavka(GeneralStavka stavka)
+        {
+            return _calcService.UpdateStavka(stavka);
         }
     }
 }
