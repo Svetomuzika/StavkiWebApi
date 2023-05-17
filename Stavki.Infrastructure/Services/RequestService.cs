@@ -40,6 +40,8 @@ namespace Stavki.Infrastructure.Services
 
         public List<RequestDomain> GetRequestsByUserId(int userId) => _requestRepository.Get(req => req.UserId == userId);
 
+        public RequestDomain GetRequestById(int id) => _requestRepository.FindById(id);
+
         public RequestDomain ChangeStatus(int id, RequestStatus status)
         {
             var request = _requestRepository.FindById(id);
@@ -73,23 +75,23 @@ namespace Stavki.Infrastructure.Services
             return allPuncts;
         }
 
-        public int? GetRequestSum(int weight, string city, bool nds, CityType type)
+        public int? GetRequestSum(int weight, string city, CityType type)
         {
             switch (type)
             {
-                case CityType.InCity:
-                {
-                    if (nds)
-                        switch (weight)
-                        {
-                            case < 24:
-                                return _inCityNDSRepository.Get(x => x.City.Contains(city)).First().UpTo24Tons;
-                            case > 25 and < 27:
-                                return _inCityNDSRepository.Get(x => x.City.Contains(city)).First().From24UpTo27Tons;
-                            case > 27:
-                                return _inCityNDSRepository.Get(x => x.City.Contains(city)).First().From27Tons;
-                        }
+                case CityType.InCityNDS:
+                    switch (weight)
+                    {
+                        case < 24:
+                            return _inCityNDSRepository.Get(x => x.City.Contains(city)).First().UpTo24Tons;
+                        case > 25 and < 27:
+                            return _inCityNDSRepository.Get(x => x.City.Contains(city)).First().From24UpTo27Tons;
+                        case > 27:
+                            return _inCityNDSRepository.Get(x => x.City.Contains(city)).First().From27Tons;
+                    }
+                    break;
 
+                case CityType.InCity:
                     switch (weight)
                     {
                         case < 24:
@@ -99,22 +101,21 @@ namespace Stavki.Infrastructure.Services
                         case > 27:
                             return _inCityRepository.Get(x => x.City.Contains(city)).First().From27Tons;
                     }
-
                     break;
-                }
-                case CityType.NearInCity:
-                {
-                    if (nds)
-                        switch (weight)
-                        {
-                            case < 24:
-                                return _nearInCityNDSRepository.Get(x => x.City.Contains(city)).First().Feet20;
-                            case > 25 and < 27:
-                                return _nearInCityNDSRepository.Get(x => x.City.Contains(city)).First().Feet40;
-                            case > 27:
-                                return _nearInCityNDSRepository.Get(x => x.City.Contains(city)).First().From24UpTo30Tons;
-                        }
 
+                case CityType.NearInCityNDS:
+                    switch (weight)
+                    {
+                        case < 24:
+                            return _nearInCityNDSRepository.Get(x => x.City.Contains(city)).First().Feet20;
+                        case > 25 and < 27:
+                            return _nearInCityNDSRepository.Get(x => x.City.Contains(city)).First().Feet40;
+                        case > 27:
+                            return _nearInCityNDSRepository.Get(x => x.City.Contains(city)).First().From24UpTo30Tons;
+                    }
+                    break;
+
+                case CityType.NearInCity:
                     switch (weight)
                     {
                         case < 24:
@@ -124,9 +125,7 @@ namespace Stavki.Infrastructure.Services
                         case > 27:
                             return _nearInCityRepository.Get(x => x.City.Contains(city)).First().From24UpTo30Tons;
                     }
-
                     break;
-                }
             }
 
             return 0;

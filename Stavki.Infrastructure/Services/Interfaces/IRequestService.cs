@@ -16,8 +16,10 @@ namespace Stavki.Infrastructure.Services.Interfaces
 
         List<ShortCityInfo> GetAllCities();
 
-        int? GetRequestSum(int weight, string city, bool nds, CityType type);
+        int? GetRequestSum(int weight, string city, CityType type);
 
         RequestDomain AddComment(CommentInfo comment);
+
+        RequestDomain GetRequestById(int id);
     }
 }

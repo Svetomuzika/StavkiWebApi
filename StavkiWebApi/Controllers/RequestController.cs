@@ -29,19 +29,15 @@ namespace StavkiWebApi.Controllers
         [HttpGet("getRequestsByUserId")]
         public List<RequestDomain> GetAllRequestsByClientId(int userId) => _requestService.GetRequestsByUserId(userId);
 
+        public RequestDomain GetRequestById(int id) => _requestService.GetRequestById(id);
+
         [HttpGet("getRequestSum")]
-        public int GetRequestSum(int weight, string city, bool nds, CityType type)
-        {
-            return _requestService.GetRequestSum(weight, city, nds, type) ?? 0;
-        }
+        public int GetRequestSum(int weight, string city, CityType type) => _requestService.GetRequestSum(weight, city, type) ?? 0;
 
         [HttpPost("AddComment")]
         public RequestDomain AddComment(CommentInfo comment) => _requestService.AddComment(comment);
 
         [HttpGet("AllCities")]
-        public List<ShortCityInfo> GetAllPuncts()
-        {
-            return _requestService.GetAllCities();
-        }
+        public List<ShortCityInfo> GetAllPuncts() => _requestService.GetAllCities();
     }
 }
