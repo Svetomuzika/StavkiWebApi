@@ -8,6 +8,8 @@ namespace Stavki.Infrastructure.Services.Interfaces
     {
         void CreateRequest(RequestDomain req);
 
+        List<RequestDomain> GetRequestsByResponsibleUserId(int userId);
+
         RequestDomain ChangeStatus(int id, RequestStatus status);
 
         List<RequestDomain> GetRequests();

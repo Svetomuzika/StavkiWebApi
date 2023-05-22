@@ -34,13 +34,28 @@ namespace Stavki.Infrastructure.Services
             _commentRepository = commentRepository;
         }
 
-        public void CreateRequest(RequestDomain req) => _requestRepository.Create(req);
+        public void CreateRequest(RequestDomain req)
+        {
+            var responsibleUsersIdCount = _userRepository.Get(x => x.DataSourceType == 0).Count;
 
-        public List<RequestDomain> GetRequests() => _requestRepository.GetWithInclude(x => x.User).ToList();
+            var rnd = new Random();
 
-        public List<RequestDomain> GetRequestsByUserId(int userId) => _requestRepository.Get(req => req.UserId == userId);
+            req.ResponsibleUserId = rnd.Next(1, responsibleUsersIdCount);
 
-        public RequestDomain GetRequestById(int id) => _requestRepository.FindById(id);
+            var responsibleUser = _userRepository.Get(x => x.Id == req.ResponsibleUserId).FirstOrDefault();
+
+            req.ResponsibleUser = responsibleUser.Name + ' ' + responsibleUser.Surname;
+
+            _requestRepository.Create(req);
+        }
+
+        public List<RequestDomain> GetRequestsByResponsibleUserId(int userId) => _requestRepository.GetWithInclude( p => p.ResponsibleUserId == userId, x => x.User, c => c.Comments).ToList();
+
+        public List<RequestDomain> GetRequests() => _requestRepository.GetWithInclude(x => x.User, c => c.Comments).ToList();
+
+        public List<RequestDomain> GetRequestsByUserId(int userId) => _requestRepository.GetWithInclude(req => req.UserId == userId, c => c.Comments).ToList();
+
+        public RequestDomain GetRequestById(int id) => _requestRepository.GetWithInclude(x => x.Id == id, c => c.User, e => e.Comments).FirstOrDefault();
 
         public RequestDomain ChangeStatus(int id, RequestStatus status)
         {
@@ -134,7 +149,6 @@ namespace Stavki.Infrastructure.Services
         public RequestDomain AddComment(CommentInfo comment)
         {
             var user = _userRepository.Get(x => x.Id == comment.UserId).First();
-
 
             _commentRepository.Create(new CommentDomain
             {

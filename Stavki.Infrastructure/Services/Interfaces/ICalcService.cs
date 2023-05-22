@@ -14,5 +14,9 @@ namespace Stavki.Infrastructure.Services.Interfaces
         public List<InCityDomain> GetStavkiInCity();
 
         bool UpdateStavka(GeneralStavka stavka);
+
+        public bool DeleteStavka(GeneralStavka generalStavka)
+
+        public bool AddStavka(GeneralStavka generalStavka)
     }
 }

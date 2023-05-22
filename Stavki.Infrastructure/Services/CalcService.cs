@@ -44,6 +44,82 @@ namespace Stavki.Infrastructure.Services
             return _nearInCityNDSRepository.Get();
         }
 
+        public bool DeleteStavka(GeneralStavka generalStavka)
+        {
+            switch (generalStavka.CityType)
+            {
+                case CityType.InCity:
+                {
+                    var stavka = _inCityRepository.FindById(generalStavka.Id);
+
+                    _inCityRepository.Remove(stavka);
+                }
+                    break;
+
+                case CityType.InCityNDS:
+                {
+                    var stavka = _inCityNDSRepository.FindById(generalStavka.Id);
+
+                    _inCityNDSRepository.Remove(stavka);
+                }
+                    break;
+
+                case CityType.NearInCity:
+                {
+                    var stavka = _nearInCityRepository.FindById(generalStavka.Id);
+
+                    _nearInCityRepository.Remove(stavka);
+                }
+                    break;
+
+                case CityType.NearInCityNDS:
+                {
+                    var stavka = _nearInCityNDSRepository.FindById(generalStavka.Id);
+
+                    _nearInCityNDSRepository.Remove(stavka);
+                }
+                    break;
+            }
+        }
+
+        public bool AddStavka(GeneralStavka generalStavka)
+        {
+            switch (generalStavka.CityType)
+            {
+                case CityType.InCity:
+                {
+                    var stavka = _inCityRepository.FindById(generalStavka.Id);
+
+                    _inCityRepository.Create(stavka);
+                }
+                    break;
+
+                case CityType.InCityNDS:
+                {
+                    var stavka = _inCityNDSRepository.FindById(generalStavka.Id);
+
+                    _inCityNDSRepository.Create(stavka);
+                }
+                    break;
+
+                case CityType.NearInCity:
+                {
+                    var stavka = _nearInCityRepository.FindById(generalStavka.Id);
+
+                    _nearInCityRepository.Create(stavka);
+                }
+                    break;
+
+                case CityType.NearInCityNDS:
+                {
+                    var stavka = _nearInCityNDSRepository.FindById(generalStavka.Id);
+
+                    _nearInCityNDSRepository.Create(stavka);
+                }
+                    break;
+            }
+        }
+            
         public bool UpdateStavka(GeneralStavka generalStavka)
         {
             try

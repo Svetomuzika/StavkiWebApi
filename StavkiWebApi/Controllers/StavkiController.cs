@@ -46,5 +46,17 @@ namespace StavkiWebApi.Controllers
         {
             return _calcService.UpdateStavka(stavka);
         }
+
+        [HttpPost("AddStavka")]
+        public bool AddStavka(GeneralStavka stavka)
+        {
+            return _calcService.AddStavka(stavka);
+        }
+
+        [HttpDelete("DeleteStavka")]
+        public bool DeleteStavka(GeneralStavka stavka)
+        {
+            return _calcService.DeleteStavka(stavka);
+        }
     }
 }

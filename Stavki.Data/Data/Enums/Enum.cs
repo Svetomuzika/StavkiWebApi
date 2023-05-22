@@ -5,6 +5,8 @@
         Created = 0,
         InProgress = 1,
         Done = 2,
+        Canceled = 3,
+        Rejected = 4
     }
 
     public enum DataSourceType

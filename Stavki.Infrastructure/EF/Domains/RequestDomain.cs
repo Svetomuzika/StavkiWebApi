@@ -26,6 +26,8 @@ namespace Stavki.Infrastructure.EF.Domains
         
         public string? ResponsibleUser { get; set; }
 
+        public int? ResponsibleUserId { get; set; }
+
         public int UserId { get; set; }
 
         public UserDomain? User { get; set; }

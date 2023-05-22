@@ -17,6 +17,10 @@ namespace StavkiWebApi.Controllers
             _requestService = requestService;
         }
 
+        [HttpGet("GetRequestsByResponsibleUserId")]
+
+        public List<RequestDomain> GetRequestsByResponsibleUserId(int userId) => _requestService.GetRequestsByResponsibleUserId(userId);
+
         [HttpPost("create")]
         public void CreateRequest(RequestDomain request) => _requestService.CreateRequest(request);
 
