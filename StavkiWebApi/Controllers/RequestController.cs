@@ -18,7 +18,6 @@ namespace StavkiWebApi.Controllers
         }
 
         [HttpGet("GetRequestsByResponsibleUserId")]
-
         public List<RequestDomain> GetRequestsByResponsibleUserId(int userId) => _requestService.GetRequestsByResponsibleUserId(userId);
 
         [HttpPost("create")]
@@ -33,6 +32,7 @@ namespace StavkiWebApi.Controllers
         [HttpGet("getRequestsByUserId")]
         public List<RequestDomain> GetAllRequestsByClientId(int userId) => _requestService.GetRequestsByUserId(userId);
 
+        [HttpGet("GetRequestById")]
         public RequestDomain GetRequestById(int id) => _requestService.GetRequestById(id);
 
         [HttpGet("getRequestSum")]
