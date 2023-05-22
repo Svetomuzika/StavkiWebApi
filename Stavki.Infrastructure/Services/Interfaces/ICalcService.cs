@@ -15,8 +15,8 @@ namespace Stavki.Infrastructure.Services.Interfaces
 
         bool UpdateStavka(GeneralStavka stavka);
 
-        public bool DeleteStavka(GeneralStavka generalStavka)
+        public bool DeleteStavka(GeneralStavka generalStavka);
 
-        public bool AddStavka(GeneralStavka generalStavka)
+        public bool AddStavka(GeneralStavka generalStavka);
     }
 }
