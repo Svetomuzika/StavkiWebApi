@@ -90,33 +90,69 @@ namespace Stavki.Infrastructure.Services
             {
                 case CityType.InCity:
                 {
-                    var stavka = _inCityRepository.FindById(generalStavka.Id);
+                    var stavka = new InCityDomain
+                    {
+                        UpTo24Tons = generalStavka.FirstValue,
+                        From24UpTo27Tons = generalStavka.SecondValue,
+                        From27Tons = generalStavka.ThirdValue,
+                        Distance = generalStavka.Distance,
+                        City = generalStavka.City,
+                        CityType = generalStavka.CityType
+                    };
 
                     _inCityRepository.Create(stavka);
+
                     return true;
                 }
 
                 case CityType.InCityNDS:
                 {
-                    var stavka = _inCityNDSRepository.FindById(generalStavka.Id);
+                    var stavka = new InCityNDSDomain
+                    {
+                        UpTo24Tons = generalStavka.FirstValue,
+                        From24UpTo27Tons = generalStavka.SecondValue,
+                        From27Tons = generalStavka.ThirdValue,
+                        Distance = generalStavka.Distance,
+                        City = generalStavka.City,
+                        CityType = generalStavka.CityType
+                    };
 
                     _inCityNDSRepository.Create(stavka);
+
                     return true;
                 }
 
                 case CityType.NearInCity:
                 {
-                    var stavka = _nearInCityRepository.FindById(generalStavka.Id);
+                    var stavka = new NearInCityDomain
+                    {
+                        Feet20 = generalStavka.FirstValue,
+                        From24UpTo30Tons = generalStavka.SecondValue,
+                        Feet40 = generalStavka.ThirdValue,
+                        Distance = generalStavka.Distance,
+                        City = generalStavka.City,
+                        CityType = generalStavka.CityType
+                    };
 
                     _nearInCityRepository.Create(stavka);
+
                     return true;
                 }
 
                 case CityType.NearInCityNDS:
                 {
-                    var stavka = _nearInCityNDSRepository.FindById(generalStavka.Id);
+                        var stavka = new NearInCityNDSDomain
+                        {
+                            Feet20 = generalStavka.FirstValue,
+                            From24UpTo30Tons = generalStavka.SecondValue,
+                            Feet40 = generalStavka.ThirdValue,
+                            Distance = generalStavka.Distance,
+                            City = generalStavka.City,
+                            CityType = generalStavka.CityType
+                        };
 
-                    _nearInCityNDSRepository.Create(stavka);
+                        _nearInCityNDSRepository.Create(stavka);
+
                     return true;
                 }
 
