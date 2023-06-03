@@ -7,5 +7,7 @@ namespace Stavki.Infrastructure.Services.Interfaces
     {
         UserInfo SignIn(ShortUserInfo userData);
         UserInfo SignUp(UserInfo userData);
+        object ResetToken(ShortUserInfo user);
+        List<object> GetAllResponsibles();
     }
 }

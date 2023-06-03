@@ -7,7 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StavkiWebApi", "StavkiWebAp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Stavki.Infrastructure", "Stavki.Infrastructure\Stavki.Infrastructure.csproj", "{414C82FA-0B6E-41CF-9F23-3985ABA56200}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stavki.Data", "Stavki.Data\Stavki.Data.csproj", "{D1876FD0-6112-4E29-854C-CBC23327B4E2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Stavki.Data", "Stavki.Data\Stavki.Data.csproj", "{D1876FD0-6112-4E29-854C-CBC23327B4E2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stavki.Tests", "Stavki.Tests\Stavki.Tests.csproj", "{1B10A960-32CE-45F3-9248-34F463890039}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{D1876FD0-6112-4E29-854C-CBC23327B4E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D1876FD0-6112-4E29-854C-CBC23327B4E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D1876FD0-6112-4E29-854C-CBC23327B4E2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1B10A960-32CE-45F3-9248-34F463890039}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1B10A960-32CE-45F3-9248-34F463890039}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1B10A960-32CE-45F3-9248-34F463890039}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1B10A960-32CE-45F3-9248-34F463890039}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

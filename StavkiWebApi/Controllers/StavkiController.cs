@@ -7,7 +7,7 @@ using Stavki.Infrastructure.Services.Interfaces;
 namespace StavkiWebApi.Controllers
 {
     [ApiController]
-    [Route("api/stavki")]
+    [Route("api/rates")]
     public class StavkiController : Controller
     {
         private readonly ICalcService _calcService;
@@ -41,19 +41,19 @@ namespace StavkiWebApi.Controllers
             return _calcService.GetStavkiNearInCityNDS();
         }
 
-        [HttpPut("UpdateStavka")]
+        [HttpPut("updateRate")]
         public bool UpdateStavka(GeneralStavka stavka)
         {
             return _calcService.UpdateStavka(stavka);
         }
 
-        [HttpPost("AddStavka")]
+        [HttpPost("addRate")]
         public bool AddStavka(GeneralStavka stavka)
         {
             return _calcService.AddStavka(stavka);
         }
 
-        [HttpDelete("DeleteStavka")]
+        [HttpDelete("deleteRate")]
         public bool DeleteStavka(GeneralStavka stavka)
         {
             return _calcService.DeleteStavka(stavka);

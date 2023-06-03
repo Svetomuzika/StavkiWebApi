@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Stavki.Infrastructure.EF;
 
@@ -11,9 +12,11 @@ using Stavki.Infrastructure.EF;
 namespace Stavki.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20230527204349_Initial15")]
+    partial class Initial15
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -35,9 +38,6 @@ namespace Stavki.Infrastructure.Migrations
 
                     b.Property<int>("DataSourceType")
                         .HasColumnType("int");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
 
                     b.Property<int>("RequestId")
                         .HasColumnType("int");
@@ -70,9 +70,6 @@ namespace Stavki.Infrastructure.Migrations
 
                     b.Property<DateTime>("CreatedDateTime")
                         .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
 
                     b.Property<bool>("IsError")
                         .HasColumnType("bit");
@@ -126,9 +123,6 @@ namespace Stavki.Infrastructure.Migrations
                     b.Property<DateTime>("DepartureDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
                     b.Property<double>("Price")
                         .HasColumnType("float");
 
@@ -177,9 +171,6 @@ namespace Stavki.Infrastructure.Migrations
                     b.Property<int?>("From27Tons")
                         .HasColumnType("int");
 
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
                     b.Property<int?>("UpTo24Tons")
                         .HasColumnType("int");
 
@@ -210,9 +201,6 @@ namespace Stavki.Infrastructure.Migrations
 
                     b.Property<int?>("From27Tons")
                         .HasColumnType("int");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
 
                     b.Property<int?>("UpTo24Tons")
                         .HasColumnType("int");
@@ -248,9 +236,6 @@ namespace Stavki.Infrastructure.Migrations
                     b.Property<int?>("From24UpTo30Tons")
                         .HasColumnType("int");
 
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
                     b.HasKey("Id");
 
                     b.ToTable("NearInCity", (string)null);
@@ -282,9 +267,6 @@ namespace Stavki.Infrastructure.Migrations
                     b.Property<int?>("From24UpTo30Tons")
                         .HasColumnType("int");
 
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
                     b.HasKey("Id");
 
                     b.ToTable("NearInCityNDS", (string)null);
@@ -297,9 +279,6 @@ namespace Stavki.Infrastructure.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
 
                     b.Property<string>("Pass")
                         .IsRequired()
@@ -338,9 +317,6 @@ namespace Stavki.Infrastructure.Migrations
                     b.Property<string>("INN")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
 
                     b.Property<string>("KPP")
                         .HasColumnType("nvarchar(max)");

@@ -16,6 +16,7 @@ namespace Stavki.Infrastructure.Autofac
             builder.RegisterType<AuthService>().As<IAuthService>();
             builder.RegisterType<RequestService>().As<IRequestService>();
             builder.RegisterType<CalcService>().As<ICalcService>();
+            builder.RegisterType<AlertService>().As<IAlertService>();
         }
     }
 }

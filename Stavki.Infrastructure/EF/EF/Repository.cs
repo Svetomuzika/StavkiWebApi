@@ -16,6 +16,8 @@ namespace Stavki.Infrastructure.EF.EF
 
         public List<TEntity> Get() => _dbSet.AsNoTracking().ToList();
 
+        public List<TEntity> GetNotDeleted() => _dbSet.AsNoTracking().ToList();
+
         public List<TEntity> Get(Expression<Func<TEntity, bool>> predicate) => _dbSet.AsNoTracking().Where(predicate).ToList();
 
         public IEnumerable<TEntity> GetWithInclude(params Expression<Func<TEntity, object>>[] includeProperties) => Include(includeProperties).ToList();

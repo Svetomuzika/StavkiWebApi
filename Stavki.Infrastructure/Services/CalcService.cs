@@ -26,22 +26,22 @@ namespace Stavki.Infrastructure.Services
 
         public List<InCityDomain> GetStavkiInCity()
         {
-            return _inCityRepository.Get();
+            return _inCityRepository.GetNotDeleted();
         }
 
         public List<InCityNDSDomain> GetStavkiInCityNDS()
         {
-            return _inCityNDSRepository.Get();
+            return _inCityNDSRepository.GetNotDeleted();
         }
 
         public List<NearInCityDomain> GetStavkiNearInCity()
         {
-            return _nearInCityRepository.Get();
+            return _nearInCityRepository.GetNotDeleted();
         }
 
         public List<NearInCityNDSDomain> GetStavkiNearInCityNDS()
         {
-            return _nearInCityNDSRepository.Get();
+            return _nearInCityNDSRepository.GetNotDeleted();
         }
 
         public bool DeleteStavka(GeneralStavka generalStavka)
@@ -124,7 +124,7 @@ namespace Stavki.Infrastructure.Services
 
                 case CityType.NearInCity:
                 {
-                    var stavka = new NearInCityDomain
+                        var stavka = new NearInCityDomain
                     {
                         Feet20 = generalStavka.FirstValue,
                         From24UpTo30Tons = generalStavka.SecondValue,
@@ -135,23 +135,21 @@ namespace Stavki.Infrastructure.Services
                     };
 
                     _nearInCityRepository.Create(stavka);
-
                     return true;
                 }
 
                 case CityType.NearInCityNDS:
                 {
-                        var stavka = new NearInCityNDSDomain
-                        {
-                            Feet20 = generalStavka.FirstValue,
-                            From24UpTo30Tons = generalStavka.SecondValue,
-                            Feet40 = generalStavka.ThirdValue,
-                            Distance = generalStavka.Distance,
-                            City = generalStavka.City,
-                            CityType = generalStavka.CityType
-                        };
+                    var stavka = new NearInCityNDSDomain();
 
-                        _nearInCityNDSRepository.Create(stavka);
+                    stavka.Feet20 = generalStavka.FirstValue;
+                    stavka.From24UpTo30Tons = generalStavka.SecondValue;
+                    stavka.Feet40 = generalStavka.ThirdValue;
+                    stavka.Distance = generalStavka.Distance;
+                    stavka.City = generalStavka.City;
+                    stavka.CityType = generalStavka.CityType;
+
+                    _nearInCityNDSRepository.Create(stavka);
 
                     return true;
                 }

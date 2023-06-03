@@ -31,5 +31,7 @@ namespace Stavki.Infrastructure.EF.Domains
         public int UserId { get; set; }
 
         public UserDomain? User { get; set; }
+
+        public List<NotifyDomain> Notifications { get; set; } = new List<NotifyDomain>();
     }
 }

@@ -4,14 +4,14 @@ using Stavki.Infrastructure.EF.Domains;
 
 namespace Stavki.Infrastructure.Mappings
 {
-    public class CommentMap : IEntityTypeConfiguration<CommentDomain>
+    public class NotifyMap : IEntityTypeConfiguration<NotifyDomain>
     {
-        public void Configure(EntityTypeBuilder<CommentDomain> builder)
+        public void Configure(EntityTypeBuilder<NotifyDomain> builder)
         {
-            builder.ToTable("Comments").HasKey(p => p.Id);
+            builder.ToTable("Notifications").HasKey(p => p.Id);
 
             builder.HasOne(x => x.Request)
-                .WithMany(c => c.Comments)
+                .WithMany(c => c.Notifications)
                 .HasForeignKey(c => c.RequestId);
         }
     }

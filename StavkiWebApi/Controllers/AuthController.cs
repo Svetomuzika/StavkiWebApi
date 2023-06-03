@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Stavki.Data.Data;
 using Stavki.Infrastructure.Services.Interfaces;
+using System.Security.Claims;
 
 namespace StavkiWebApi.Controllers
 {
@@ -19,7 +20,16 @@ namespace StavkiWebApi.Controllers
         {
             try
             {
-                return Ok(_authService.SignIn(userInfo));
+                var token = _authService.ResetToken(userInfo);
+                var user = _authService.SignIn(userInfo);
+
+                var result = new
+                {
+                    user,
+                    token
+                };
+
+                return Ok(new{ user, token });
             }
             catch (Exception ex)
             {
@@ -38,6 +48,12 @@ namespace StavkiWebApi.Controllers
             {
                 return new BadRequestObjectResult(ex.Message);
             }
+        }
+
+        [HttpPost("resetToken")]
+        public IActionResult Token(ShortUserInfo userInfo)
+        {
+            return Ok(_authService.ResetToken(userInfo));
         }
     }
 }

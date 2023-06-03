@@ -1,9 +1,17 @@
-﻿using Stavki.Data.Data;
+﻿using System.Globalization;
+using System.Text.RegularExpressions;
+using System.Web;
+using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using Stavki.Data.Data;
 using Stavki.Data.Data.Enums;
 using Stavki.Infrastructure.EF.Domains;
 using Stavki.Infrastructure.EF.Domains.Stavki;
 using Stavki.Infrastructure.EF.EF;
 using Stavki.Infrastructure.Services.Interfaces;
+using static Stavki.Infrastructure.Consts.ApiPec;
+
 
 namespace Stavki.Infrastructure.Services
 {
@@ -34,7 +42,7 @@ namespace Stavki.Infrastructure.Services
             _commentRepository = commentRepository;
         }
 
-        public void CreateRequest(RequestDomain req)
+        public int CreateRequest(RequestDomain req)
         {
             var responsibleUsersIdCount = _userRepository.Get(x => x.DataSourceType == 0).Count;
 
@@ -47,6 +55,8 @@ namespace Stavki.Infrastructure.Services
             req.ResponsibleUser = responsibleUser.Name + ' ' + responsibleUser.Surname;
 
             _requestRepository.Create(req);
+
+            return req.Id;
         }
 
         public List<RequestDomain> GetRequestsByResponsibleUserId(int userId) => _requestRepository.GetWithInclude( p => p.ResponsibleUserId == userId, x => x.User, c => c.Comments).ToList();
@@ -72,13 +82,13 @@ namespace Stavki.Infrastructure.Services
         {
             var allPuncts = new List<ShortCityInfo>();
 
-            var allNearInCity = _nearInCityRepository.Get().Select(x => new ShortCityInfo
+            var allNearInCity = _nearInCityRepository.GetNotDeleted().Select(x => new ShortCityInfo
             {
                 City = x.City,
                 Type = CityType.NearInCity
             });
 
-            var allInCity = _inCityRepository.Get().Select(x => new ShortCityInfo
+            var allInCity = _inCityRepository.GetNotDeleted().Select(x => new ShortCityInfo
             {
                 City = x.City,
                 Type = CityType.InCity
@@ -160,6 +170,42 @@ namespace Stavki.Infrastructure.Services
             });
 
             return _requestRepository.GetWithInclude(x => x.Comments).First(x => x.Id == comment.RequestId);
+        }
+
+        public string? GetCompetitors(string city)
+        {
+            var width = 1;
+            var length = 1;
+            var height = 1;
+            var volume = 1;
+            var weight = 1;
+
+            using var httpClient = new HttpClient();
+                using var citiesResponse = httpClient.GetAsync(API_PEC_CITIES_URL);
+
+            var citiesApiResponse = citiesResponse.Result.Content.ReadAsStringAsync().Result;
+
+            Regex regex = new Regex(@"\\U([0-9A-F]{4})", RegexOptions.IgnoreCase);
+
+            var result = regex
+                .Replace(citiesApiResponse, match => ((char)int.Parse(match.Groups[1].Value, NumberStyles.HexNumber))
+                .ToString());
+
+            var cityId = result
+                .Split(new char[] { ',' })
+                .Select(x => x.Split(new char[] { ':' }))
+                .Where(x => x.Count() > 1)
+                .FirstOrDefault(x => x[1].ToLower().Contains(city.ToLower()))?.FirstOrDefault();
+
+            using var priceResponse = httpClient.GetAsync(string.Format(API_PEC_PRICE_URL, width, length, height, volume, weight, cityId));
+
+            var priceApiResponse = priceResponse.Result.Content.ReadAsStringAsync().Result;
+
+            result = regex
+                .Replace(priceApiResponse, match => ((char)int.Parse(match.Groups[1].Value, NumberStyles.HexNumber))
+                .ToString());
+
+            return (string)JObject.Parse(result)["deliver"][2];
         }
     }
 }

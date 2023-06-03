@@ -24,6 +24,16 @@ namespace Stavki.Infrastructure
             };
         }
 
+        public static List<object> MapToShortUserInfo(this IEnumerable<UserDomain> user)
+        {
+            return user.Select(x => (object)new
+            {
+                Name = x.Name,
+                Surname = x.Surname,
+                Id = x.Id
+            }).ToList();
+        }
+
         public static UserDomain MapToUserDomain(this UserInfo user)
         {
             return new UserDomain
@@ -40,7 +50,7 @@ namespace Stavki.Infrastructure
                 KPP = user.KPP,
                 UserData = new UserDataDomain
                 {
-                    Pass = user.Pass
+                    Pass = ""
                 }
             };
         }

@@ -6,7 +6,7 @@ namespace Stavki.Infrastructure.Services.Interfaces
 {
     public interface IRequestService
     {
-        void CreateRequest(RequestDomain req);
+        int CreateRequest(RequestDomain req);
 
         List<RequestDomain> GetRequestsByResponsibleUserId(int userId);
 
@@ -23,5 +23,7 @@ namespace Stavki.Infrastructure.Services.Interfaces
         RequestDomain AddComment(CommentInfo comment);
 
         RequestDomain GetRequestById(int id);
+
+        string GetCompetitors(string city);
     }
 }
