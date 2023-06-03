@@ -50,7 +50,7 @@ namespace Stavki.Infrastructure
                 KPP = user.KPP,
                 UserData = new UserDataDomain
                 {
-                    Pass = ""
+                    Pass = user.Pass
                 }
             };
         }

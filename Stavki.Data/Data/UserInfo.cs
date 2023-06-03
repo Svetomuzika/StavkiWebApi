@@ -24,6 +24,8 @@ namespace Stavki.Data.Data
 
         public int Id { get; set; }
 
+        public string Pass { get; set; }
+
         public DataSourceType DataSourceType { get; set; }
     }
 }

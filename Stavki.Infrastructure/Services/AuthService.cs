@@ -44,8 +44,6 @@ namespace Stavki.Infrastructure.Services
             if(string.IsNullOrEmpty(user.INN))
                 throw new Exception("Не указан ИНН юр. Лица");
 
-            
-
             try
             {
                 using var httpClient = new HttpClient();
