@@ -29,7 +29,7 @@ namespace StavkiWebApi.Controllers
         public RequestDomain ChangeStatus(int requestId, RequestStatus status) => _requestService.ChangeStatus(requestId, status);
 
         [HttpPost("getRequests")]
-        public List<RequestDomain> GetAllRequests(SearchSettings searchSettings) => _requestService.GetRequests();
+        public List<RequestDomain> GetAllRequests(SearchSettings searchSettings) => _requestService.GetRequests(searchSettings);
 
         //[HttpGet("getRequestsByUserId")]
         //public List<RequestDomain> GetAllRequestsByClientId(SearchSettings searchSettings) => _requestService.GetRequestsByUserId(searchSettings);

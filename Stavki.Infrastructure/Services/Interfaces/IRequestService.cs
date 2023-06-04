@@ -12,7 +12,7 @@ namespace Stavki.Infrastructure.Services.Interfaces
 
         RequestDomain ChangeStatus(int id, RequestStatus status);
 
-        List<RequestDomain> GetRequests();
+        List<RequestDomain> GetRequests(SearchSettings settings);
 
         List<RequestDomain> GetRequestsByUserId(int userId);
 
