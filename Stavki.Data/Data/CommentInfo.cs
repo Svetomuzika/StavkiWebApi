@@ -8,6 +8,8 @@ namespace Stavki.Data.Data
 {
     public class CommentInfo
     {
+        public int Id { get; set; }
+
         public int CommentId { get; set; }
 
         public string Comment { get; set; }

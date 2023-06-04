@@ -182,7 +182,7 @@ namespace Stavki.Infrastructure.Services
                 Text = comment.Comment,
             });
 
-            JobId = BackgroundJob.Schedule("stavki", () => SendDelayedMessagesJob(), TimeSpan.FromSeconds(60));
+            JobId = BackgroundJob.Schedule("stavki", () => SendDelayedMessagesJob(comment.UserId), TimeSpan.FromSeconds(60));
 
 
             return _requestRepository.GetWithInclude(x => x.Comments).First(x => x.Id == comment.RequestId);
