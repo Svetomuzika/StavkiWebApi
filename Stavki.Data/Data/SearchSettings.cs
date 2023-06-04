@@ -6,7 +6,7 @@ namespace Stavki.Data.Data
     {
         public List<RequestStatus> RequestStatuses { get; set; }
 
-        public List<ShortUserInfo> Responsibles { get; set; }
+        public List<int> Responsibles { get; set; }
 
         public int StartWeight { get; set; }
 

@@ -1,6 +1,7 @@
 ﻿using System.Globalization;
 using System.Text.RegularExpressions;
 using System.Web;
+using Hangfire;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -24,6 +25,8 @@ namespace Stavki.Infrastructure.Services
         private readonly IRepository<NearInCityNDSDomain> _nearInCityNDSRepository;
         private readonly IRepository<UserDomain> _userRepository;
         private readonly IRepository<CommentDomain> _commentRepository;
+        private readonly IRepository<NotifyDomain> _notifyRepository;
+        private string? JobId;
 
         public RequestService(IRepository<RequestDomain> requestRepository, 
             IRepository<InCityDomain> inCityRepository,
@@ -31,7 +34,8 @@ namespace Stavki.Infrastructure.Services
             IRepository<InCityNDSDomain> inCityNDSRepository,
             IRepository<NearInCityNDSDomain> nearInCityNDSRepository,
             IRepository<UserDomain> userRepository,
-            IRepository<CommentDomain> commentRepository)
+            IRepository<CommentDomain> commentRepository,
+            IRepository<NotifyDomain> notifyRepository)
         {
             _requestRepository = requestRepository;
             _inCityRepository = inCityRepository;
@@ -40,6 +44,7 @@ namespace Stavki.Infrastructure.Services
             _nearInCityNDSRepository = nearInCityNDSRepository;
             _userRepository = userRepository;
             _commentRepository = commentRepository;
+            _notifyRepository = notifyRepository;
         }
 
         public int CreateRequest(RequestDomain req)
@@ -55,6 +60,14 @@ namespace Stavki.Infrastructure.Services
             req.ResponsibleUser = responsibleUser.Name + ' ' + responsibleUser.Surname;
 
             _requestRepository.Create(req);
+
+            _notifyRepository.Create(new NotifyDomain()
+            {
+                RequestId = req.Id,
+                CreatedDateTime = DateTime.Now,
+                Text = "Создана новая заявка от клиента",
+                UserId = req.ResponsibleUserId        
+            });
 
             return req.Id;
         }
@@ -169,7 +182,27 @@ namespace Stavki.Infrastructure.Services
                 Text = comment.Comment,
             });
 
+            JobId = BackgroundJob.Schedule("stavki", () => SendDelayedMessagesJob(), TimeSpan.FromSeconds(60));
+
+
             return _requestRepository.GetWithInclude(x => x.Comments).First(x => x.Id == comment.RequestId);
+        }
+
+        public bool UpdateComment(CommentInfo comment)
+        {
+            var user = _userRepository.Get(x => x.Id == comment.UserId).First();
+
+            var commentEntity = _commentRepository.FindById(comment.Id);
+
+            commentEntity.Text = comment.Comment;
+
+            _commentRepository.Update(commentEntity);
+
+            BackgroundJob.Delete(JobId);
+
+            JobId = BackgroundJob.Schedule("stavki", () => SendDelayedMessagesJob(comment.RequestId), TimeSpan.FromSeconds(10));
+
+            return true;
         }
 
         public string? GetCompetitors(string city)
@@ -206,6 +239,19 @@ namespace Stavki.Infrastructure.Services
                 .ToString());
 
             return (string)JObject.Parse(result)["deliver"][2];
+        }
+
+        public void SendDelayedMessagesJob(int id)
+        {
+            var req = _requestRepository.FindById(id);
+
+            _notifyRepository.Create(new NotifyDomain
+            {
+                RequestId = id,
+                Text = "В заявке оставлен новый комментарий",
+                CreatedDateTime = DateTime.Now,
+                UserId = req.UserId
+            });
         }
     }
 }

@@ -21,5 +21,7 @@ namespace Stavki.Infrastructure.EF.Domains
         public int RequestId { get; set; }
 
         public RequestDomain Request { get; set; }
+
+        public int? UserId { get; set; }
     }
 }

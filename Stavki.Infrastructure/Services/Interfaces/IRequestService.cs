@@ -25,5 +25,7 @@ namespace Stavki.Infrastructure.Services.Interfaces
         RequestDomain GetRequestById(int id);
 
         string GetCompetitors(string city);
+
+        bool UpdateComment(CommentInfo comment);
     }
 }

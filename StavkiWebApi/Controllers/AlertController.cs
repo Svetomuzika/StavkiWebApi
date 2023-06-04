@@ -8,10 +8,23 @@ namespace StavkiWebApi.Controllers
     [Route("api/alert")]
     public class AlertController : ControllerBase
     {
-        [HttpPost("getAlertsCount")]
-        public IActionResult SignIn()
+        private readonly IAlertService _alertService;
+
+        public AlertController(IAlertService alertService)
         {
-            return Ok();
+            _alertService = alertService;
+        }
+
+        [HttpGet("getAlerts")]
+        public IActionResult GetAlerts(int UserId)
+        {
+            return Ok(_alertService.GetAlerts(UserId));
+        }
+
+        [HttpGet("remove")]
+        public IActionResult RemoveAlerts(int UserId)
+        {
+            return Ok(_alertService.GetAlerts(UserId));
         }
     }
 }

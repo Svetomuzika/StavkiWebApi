@@ -13,7 +13,6 @@ namespace StavkiWebApi.Controllers
         private readonly IRequestService _requestService;
         private readonly IAuthService _authService;
 
-
         public RequestController(IRequestService requestService, IAuthService authService)
         {
             _requestService = requestService;
@@ -32,8 +31,8 @@ namespace StavkiWebApi.Controllers
         [HttpPost("getRequests")]
         public List<RequestDomain> GetAllRequests(SearchSettings searchSettings) => _requestService.GetRequests();
 
-        [HttpGet("getRequestsByUserId")]
-        public List<RequestDomain> GetAllRequestsByClientId(SearchSettings searchSettings) => _requestService.GetRequestsByUserId(userId);
+        //[HttpGet("getRequestsByUserId")]
+        //public List<RequestDomain> GetAllRequestsByClientId(SearchSettings searchSettings) => _requestService.GetRequestsByUserId(searchSettings);
 
         [HttpGet("getRequestById")]
         public RequestDomain GetRequestById(int id) => _requestService.GetRequestById(id);
@@ -48,7 +47,7 @@ namespace StavkiWebApi.Controllers
         public RequestDomain AddComment(CommentInfo comment) => _requestService.AddComment(comment);
 
         [HttpPut("UpdateComment")]
-        public RequestDomain EditComment(CommentInfo comment) => _requestService.AddComment(comment);
+        public bool EditComment(CommentInfo comment) => _requestService.UpdateComment(comment);
 
         [HttpDelete("deleteComment")]
         public RequestDomain DeleteComment(CommentInfo comment) => _requestService.AddComment(comment);
