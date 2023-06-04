@@ -58,7 +58,7 @@ namespace Stavki.Infrastructure.Services
             var rnd = new Random();
 
 
-            req.ResponsibleUserId = 1;
+            req.ResponsibleUserId = 1005;
             //req.ResponsibleUserId = rnd.Next(1, responsibleUsersIdCount);
 
             var responsibleUser = _userRepository.Get(x => x.Id == req.ResponsibleUserId).FirstOrDefault();
