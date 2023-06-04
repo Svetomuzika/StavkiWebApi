@@ -11,6 +11,7 @@ using Stavki.Infrastructure.EF.Domains;
 using Stavki.Infrastructure.EF.Domains.Stavki;
 using Stavki.Infrastructure.EF.EF;
 using Stavki.Infrastructure.Services.Interfaces;
+using Telegram.Bot;
 using static Stavki.Infrastructure.Consts.ApiPec;
 
 
@@ -26,6 +27,7 @@ namespace Stavki.Infrastructure.Services
         private readonly IRepository<UserDomain> _userRepository;
         private readonly IRepository<CommentDomain> _commentRepository;
         private readonly IRepository<NotifyDomain> _notifyRepository;
+        private readonly IAlertService _alertService;
         private string? JobId;
 
         public RequestService(IRepository<RequestDomain> requestRepository, 
@@ -35,7 +37,8 @@ namespace Stavki.Infrastructure.Services
             IRepository<NearInCityNDSDomain> nearInCityNDSRepository,
             IRepository<UserDomain> userRepository,
             IRepository<CommentDomain> commentRepository,
-            IRepository<NotifyDomain> notifyRepository)
+            IRepository<NotifyDomain> notifyRepository,
+            IAlertService alertService)
         {
             _requestRepository = requestRepository;
             _inCityRepository = inCityRepository;
@@ -45,6 +48,7 @@ namespace Stavki.Infrastructure.Services
             _userRepository = userRepository;
             _commentRepository = commentRepository;
             _notifyRepository = notifyRepository;
+            _alertService = alertService;   
         }
 
         public int CreateRequest(RequestDomain req)
@@ -73,6 +77,12 @@ namespace Stavki.Infrastructure.Services
                 UserId = req.ResponsibleUserId        
             });
 
+            var bot = new TelegramBotClient("6100858111:AAFvM_Cp6o8NTzt0HIrrdMCkdKtwSx3wtgA");
+
+            var aa = bot.SendTextMessageAsync("542880503", $"Создана новая заявка от клиента \nСсылка для перехода к заявке: http://localhost:5173/requests/{req.Id}").Result;
+            _alertService.SendEmailAlert("", "Уведомление по заявке", $"Создана новая заявка от клиента <br/>Ссылка для перехода к заявке: http://localhost:5173/requests/{req.Id}");
+
+
             return req.Id;
         }
 
@@ -82,11 +92,16 @@ namespace Stavki.Infrastructure.Services
         {
             var reqs = _requestRepository.GetWithInclude(x => x.User, c => c.Comments);
 
-            if(settings.RequestStatuses.Any())
-                reqs = reqs.Where(x => settings.RequestStatuses.Contains(x.Status));
 
             if (settings.ClientId is not null)
                 reqs = reqs.Where(x => x.UserId == settings.ClientId);
+
+
+            if (settings.Cities is not null)
+                reqs = reqs.Where(x => settings.Cities.Contains(x.DepartureCity));
+
+            if (settings.RequestStatuses.Any())
+                reqs = reqs.Where(x => settings.RequestStatuses.Contains(x.Status));
 
             if (settings.Responsibles.Any())
                 reqs = reqs.Where(x => settings.Responsibles.Contains(x.ResponsibleUserId));
@@ -211,7 +226,6 @@ namespace Stavki.Infrastructure.Services
 
             JobId = BackgroundJob.Schedule(() => SendDelayedMessagesJob(comment.RequestId), TimeSpan.FromSeconds(10));
 
-
             return _requestRepository.GetWithInclude(x => x.Comments).First(x => x.Id == comment.RequestId);
         }
 
@@ -279,6 +293,12 @@ namespace Stavki.Infrastructure.Services
                 CreatedDateTime = DateTime.Now,
                 UserId = req.UserId
             });
+
+            var bot = new TelegramBotClient("6100858111:AAFvM_Cp6o8NTzt0HIrrdMCkdKtwSx3wtgA");
+
+            var aa = bot.SendTextMessageAsync("542880503", $"В заявке №{id} оставлен новый комментарий \nСсылка для перехода к заявке: http://localhost:5173/requests/{id}").Result;
+
+            _alertService.SendEmailAlert("", "Уведомление по заявке", $"В заявке №{id} оставлен новый комментарий <br/>Ссылка для перехода к заявке: http://localhost:5173/requests/{id}");
         }
     }
 }

@@ -12,5 +12,7 @@ namespace Stavki.Infrastructure.Services.Interfaces
         List<NotifyDomain> GetAlerts(int userId);
 
         void RemoveAlerts();
+
+        void SendEmailAlert(string email, string subject, string message);
     }
 }
