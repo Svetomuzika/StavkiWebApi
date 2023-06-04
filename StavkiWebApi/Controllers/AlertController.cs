@@ -22,9 +22,10 @@ namespace StavkiWebApi.Controllers
         }
 
         [HttpGet("remove")]
-        public IActionResult RemoveAlerts(int UserId)
+        public IActionResult RemoveAlerts()
         {
-            return Ok(_alertService.GetAlerts(UserId));
+            _alertService.RemoveAlerts();
+            return Ok();
         }
     }
 }
