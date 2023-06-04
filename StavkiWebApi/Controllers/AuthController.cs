@@ -42,7 +42,15 @@ namespace StavkiWebApi.Controllers
         {
             try
             {
-                return Ok(_authService.SignUp(user));
+                var user = _authService.SignUp(user);
+
+                var result = new
+                {
+                    user,
+                    token = ""
+                };
+
+                return Ok(result);
             }
             catch (Exception ex)
             {

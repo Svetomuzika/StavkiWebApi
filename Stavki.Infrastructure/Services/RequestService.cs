@@ -105,7 +105,7 @@ namespace Stavki.Infrastructure.Services
 
             if (settings.Responsibles.Any())
                 reqs = reqs.Where(x => settings.Responsibles.Contains(x.ResponsibleUserId));
-            \
+            
             if(settings.StartDate is not null)
                 reqs = reqs.Where(x => x.DepartureDate > settings.StartDate);
 
