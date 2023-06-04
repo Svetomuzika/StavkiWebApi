@@ -169,7 +169,7 @@ namespace Stavki.Infrastructure.Services
             return 0;
         }
 
-        public async RequestDomain AddComment(CommentInfo comment)
+        public RequestDomain AddComment(CommentInfo comment)
         {
             var user = _userRepository.Get(x => x.Id == comment.UserId).First();
 
