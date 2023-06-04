@@ -38,11 +38,11 @@ namespace StavkiWebApi.Controllers
         }
 
         [HttpPost("singUp")]
-        public IActionResult SingUp(UserInfo user)
+        public IActionResult SingUp(UserInfo user1)
         {
             try
             {
-                var user = _authService.SignUp(user);
+                var user = _authService.SignUp(user1);
 
                 var result = new
                 {
