@@ -53,11 +53,15 @@ namespace Stavki.Infrastructure.Services
 
             var rnd = new Random();
 
-            req.ResponsibleUserId = rnd.Next(1, responsibleUsersIdCount);
+
+            req.ResponsibleUserId = 1;
+            //req.ResponsibleUserId = rnd.Next(1, responsibleUsersIdCount);
 
             var responsibleUser = _userRepository.Get(x => x.Id == req.ResponsibleUserId).FirstOrDefault();
 
-            req.ResponsibleUser = responsibleUser.Name + ' ' + responsibleUser.Surname;
+
+            req.ResponsibleUser = "Алексей Белоусов";
+            //req.ResponsibleUser = responsibleUser.Name + ' ' + responsibleUser.Surname;
 
             _requestRepository.Create(req);
 
@@ -182,7 +186,7 @@ namespace Stavki.Infrastructure.Services
                 Text = comment.Comment,
             });
 
-            JobId = BackgroundJob.Schedule("stavki", () => SendDelayedMessagesJob(comment.UserId), TimeSpan.FromSeconds(10));
+            JobId = BackgroundJob.Schedule(() => SendDelayedMessagesJob(comment.RequestId), TimeSpan.FromSeconds(10));
 
 
             return _requestRepository.GetWithInclude(x => x.Comments).First(x => x.Id == comment.RequestId);
@@ -200,7 +204,7 @@ namespace Stavki.Infrastructure.Services
 
             BackgroundJob.Delete(JobId);
 
-            JobId = BackgroundJob.Schedule("stavki", () => SendDelayedMessagesJob(comment.RequestId), TimeSpan.FromSeconds(10));
+            JobId = BackgroundJob.Schedule(() => SendDelayedMessagesJob(comment.RequestId), TimeSpan.FromSeconds(10));
 
             return true;
         }

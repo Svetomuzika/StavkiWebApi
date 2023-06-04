@@ -6,7 +6,7 @@ namespace Stavki.Infrastructure.EF.Domains
     {
         public string Text { get; set; }
 
-        public string Subject { get; set; }
+        public string? Subject { get; set; }
 
         public DateTime CreatedDateTime { get; set; }
 
@@ -14,7 +14,7 @@ namespace Stavki.Infrastructure.EF.Domains
 
         public bool IsError { get; set; }
 
-        public string Addressee { get; set; }
+        public string? Addressee { get; set; }
 
         public bool IsSent { get; set; }
 
