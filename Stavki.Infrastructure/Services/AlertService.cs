@@ -13,9 +13,9 @@ namespace Stavki.Infrastructure.Services
             _notifyRepository = notifyRepository;
         }
 
-        public NotifyDomain GetAlerts(int userId)
+        public List<NotifyDomain> GetAlerts(int userId)
         {
-            return _notifyRepository.Get().FirstOrDefault(x => x.UserId == userId);
+            return _notifyRepository.Get().Where(x => x.UserId == userId && !x.IsDeleted).ToList();
         }
 
         public void RemoveAlerts()
@@ -24,7 +24,8 @@ namespace Stavki.Infrastructure.Services
 
             alerts.ForEach(x =>
             {
-                _notifyRepository.Remove(x);
+                x.IsDeleted =  true;
+                _notifyRepository.Update(x);
             });
         }
     }

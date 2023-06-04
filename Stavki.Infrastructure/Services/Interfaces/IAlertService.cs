@@ -9,7 +9,7 @@ namespace Stavki.Infrastructure.Services.Interfaces
 {
     public interface IAlertService
     {
-        NotifyDomain GetAlerts(int userId);
+        List<NotifyDomain> GetAlerts(int userId);
 
         void RemoveAlerts();
     }
