@@ -97,7 +97,7 @@ namespace Stavki.Infrastructure.Services
                 reqs = reqs.Where(x => x.UserId == settings.ClientId);
 
 
-            if (settings.Cities is not null)
+            if (settings.Cities.Any())
                 reqs = reqs.Where(x => settings.Cities.Contains(x.DepartureCity));
 
             if (settings.RequestStatuses.Any())
