@@ -98,7 +98,7 @@ namespace Stavki.Infrastructure.Services
 
 
             if (settings.Cities.Any())
-                reqs = reqs.Where(x => settings.Cities.Contains(x.ArrivalCity));
+                reqs = reqs.Where(x => settings.Cities.Contains(x.DepartureCity));
 
             if (settings.RequestStatuses.Any())
                 reqs = reqs.Where(x => settings.RequestStatuses.Contains(x.Status));
