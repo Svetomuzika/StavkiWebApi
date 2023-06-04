@@ -6,7 +6,7 @@ namespace Stavki.Data.Data
     {
         public List<RequestStatus> RequestStatuses { get; set; }
 
-        public List<int> Responsibles { get; set; }
+        public List<int?> Responsibles { get; set; }
 
         public int StartWeight { get; set; }
 
@@ -16,9 +16,9 @@ namespace Stavki.Data.Data
 
         public int EndPrice { get; set; }
 
-        public DateTime StartDate { get; set; }
+        public DateTime? StartDate { get; set; }
 
-        public DateTime EndDate { get; set; }
+        public DateTime? EndDate { get; set; }
 
         public int? ClientId { get; set; }
     }

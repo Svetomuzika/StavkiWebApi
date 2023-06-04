@@ -78,7 +78,30 @@ namespace Stavki.Infrastructure.Services
 
         public List<RequestDomain> GetRequestsByResponsibleUserId(int userId) => _requestRepository.GetWithInclude( p => p.ResponsibleUserId == userId, x => x.User, c => c.Comments).ToList();
 
-        public List<RequestDomain> GetRequests() => _requestRepository.GetWithInclude(x => x.User, c => c.Comments).ToList();
+        public List<RequestDomain> GetRequests(SearchSettings settings)
+        {
+            var reqs = _requestRepository.GetWithInclude(x => x.User, c => c.Comments);
+
+            if(settings.RequestStatuses.Any())
+                reqs = reqs.Where(x => settings.RequestStatuses.Contains(x.Status));
+
+            if (settings.ClientId is not null)
+                reqs = reqs.Where(x => x.UserId == settings.ClientId);
+
+            if (settings.Responsibles.Any())
+                reqs = reqs.Where(x => settings.Responsibles.Contains(x.ResponsibleUserId));
+
+            if(settings.StartDate is not null)
+                reqs = reqs.Where(x => x.DepartureDate > settings.StartDate);
+
+            if (settings.EndDate is not null)
+                reqs = reqs.Where(x => x.DepartureDate < settings.EndDate);
+
+            reqs = reqs.Where(x => settings.StartPrice < x.Price && settings.EndPrice > x.Price)
+                .Where(x => settings.StartWeight < x.CargoWeight && settings.EndWeight > x.CargoWeight);
+
+            return reqs.ToList();
+        } 
 
         public List<RequestDomain> GetRequestsByUserId(int userId) => _requestRepository.GetWithInclude(req => req.UserId == userId, c => c.Comments).ToList();
 
