@@ -33,7 +33,7 @@ namespace Stavki.Infrastructure.SignalR
 
             var a = Clients.Others.SendAsync("Receive", comm);
 
-            JobId = BackgroundJob.Schedule(() => a, TimeSpan.FromSeconds(10));
+            JobId = BackgroundJob.Schedule(() => a.Start(), TimeSpan.FromSeconds(10));
         }
 
         public async Task Update(CommentInfo comment)
