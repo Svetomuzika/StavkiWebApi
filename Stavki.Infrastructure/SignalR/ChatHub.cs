@@ -52,7 +52,7 @@ namespace Stavki.Infrastructure.SignalR
             JobId = BackgroundJob.Schedule(() => SendDelayedMessagesJob(comm), TimeSpan.FromSeconds(10));
         }
 
-        public async void SendDelayedMessagesJob(CommentDomain comm)
+        public async Task SendDelayedMessagesJob(CommentDomain comm)
         {
             await Clients.Others.SendAsync("Receive", comm);
         }
