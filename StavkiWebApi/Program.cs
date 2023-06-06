@@ -24,8 +24,6 @@ builder.Services.AddControllers().AddJsonOptions(options =>
     options.JsonSerializerOptions.WriteIndented = true;
 });
 
-var a = new ChatHub(null).Send(new CommentInfo());
-
 builder.Services.AddDbContext<ApplicationContext>(options => options
     .UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
