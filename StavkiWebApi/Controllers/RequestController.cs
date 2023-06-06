@@ -44,13 +44,13 @@ namespace StavkiWebApi.Controllers
         public string GetCompetitors(string city) => _requestService.GetCompetitors(city);
 
         [HttpPost("addComment")]
-        public RequestDomain AddComment(CommentInfo comment) => _requestService.AddComment(comment);
+        public CommentInfo AddComment(CommentInfo comment) => _requestService.AddComment(comment);
 
         [HttpPut("UpdateComment")]
         public bool EditComment(CommentInfo comment) => _requestService.UpdateComment(comment);
 
         [HttpDelete("deleteComment")]
-        public RequestDomain DeleteComment(CommentInfo comment) => _requestService.AddComment(comment);
+        public CommentInfo DeleteComment(CommentInfo comment) => _requestService.AddComment(comment);
 
         [HttpGet("allCities")]
         public List<ShortCityInfo> GetAllPuncts() => _requestService.GetAllCities();

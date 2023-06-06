@@ -211,22 +211,24 @@ namespace Stavki.Infrastructure.Services
             return 0;
         }
 
-        public RequestDomain AddComment(CommentInfo comment)
+        public CommentInfo AddComment(CommentInfo comment)
         {
             var user = _userRepository.Get(x => x.Id == comment.UserId).First();
 
-            _commentRepository.Create(new CommentDomain
+            var comm = new CommentDomain
             {
                 RequestId = comment.RequestId,
                 UserId = comment.UserId,
                 DataSourceType = user.DataSourceType,
                 CreateDate = DateTime.Now,
                 Text = comment.Comment,
-            });
+            };
+
+            _commentRepository.Create(comm);
 
             JobId = BackgroundJob.Schedule(() => SendDelayedMessagesJob(comment.RequestId), TimeSpan.FromSeconds(10));
-
-            return _requestRepository.GetWithInclude(x => x.Comments).First(x => x.Id == comment.RequestId);
+            comment.Id = comm.Id;
+            return comment;
         }
 
         public bool UpdateComment(CommentInfo comment)

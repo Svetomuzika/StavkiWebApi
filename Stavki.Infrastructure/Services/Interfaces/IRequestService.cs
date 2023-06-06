@@ -20,7 +20,7 @@ namespace Stavki.Infrastructure.Services.Interfaces
 
         int? GetRequestSum(int weight, string city, CityType type);
 
-        RequestDomain AddComment(CommentInfo comment);
+        CommentInfo AddComment(CommentInfo comment);
 
         RequestDomain GetRequestById(int id);
 
