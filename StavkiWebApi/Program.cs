@@ -101,6 +101,15 @@ app.MapHangfireDashboard();
 
 JobScheduler.Run();
 
+
+
+//var a = new ChatHub(null).Send(new CommentInfo()
+//{
+//    Comment = "sda",
+//    Id = 1010,
+//    RequestId = 1009
+//});
+
 app.UseAuthentication();
 app.UseAuthorization();
 
