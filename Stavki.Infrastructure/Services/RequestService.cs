@@ -231,7 +231,7 @@ namespace Stavki.Infrastructure.Services
 
         public bool UpdateComment(CommentInfo comment)
         {
-            var user = _userRepository.Get(x => x.Id == comment.UserId).First();
+            //var user = _userRepository.Get(x => x.Id == comment.UserId).First();
 
             var commentEntity = _commentRepository.FindById(comment.Id);
 
