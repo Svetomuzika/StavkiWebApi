@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.SignalR;
+﻿using Hangfire;
+using Microsoft.AspNetCore.SignalR;
 using Stavki.Data.Data;
 using Stavki.Infrastructure.EF.Domains;
 using Stavki.Infrastructure.Services.Interfaces;
@@ -8,7 +9,7 @@ namespace Stavki.Infrastructure.SignalR
     public class ChatHub : Hub
     {
         private readonly IRequestService _requestService;
-
+        private string? JobId;
 
         public ChatHub(IRequestService requestService)
         {
@@ -29,9 +30,29 @@ namespace Stavki.Infrastructure.SignalR
 
             await Clients.Caller.SendAsync("Receive", comm);
 
-            await Task.Delay(10000);
+            JobId = BackgroundJob.Schedule(() => SendDelayedMessagesJob(comm), TimeSpan.FromSeconds(10));
+        }
 
-            await Clients.Others.SendAsync("Receive", comm);
+        public async Task Update(CommentInfo comment)
+        {
+            _requestService.UpdateComment(comment);
+
+            var comm = new CommentDomain
+            {
+                RequestId = comment.RequestId,
+                UserId = comment.UserId,
+                CreateDate = DateTime.Now,
+                Text = comment.Comment,
+            };
+
+            BackgroundJob.Delete(JobId);
+
+            JobId = BackgroundJob.Schedule(() => SendDelayedMessagesJob(comm), TimeSpan.FromSeconds(10));
+        }
+
+        public void SendDelayedMessagesJob(CommentDomain comm)
+        {
+            Clients.Others.SendAsync("Receive", comm);
         }
     }
 }
