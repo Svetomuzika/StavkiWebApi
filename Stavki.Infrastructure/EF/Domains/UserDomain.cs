@@ -28,5 +28,8 @@ namespace Stavki.Infrastructure.EF.Domains
         public UserDataDomain UserData{ get; set; }
 
         public List<RequestDomain> Requests { get; set; }
+
+        public List<RequestHistoryDomain> RequestsHistory { get; set; }
+
     }
 }

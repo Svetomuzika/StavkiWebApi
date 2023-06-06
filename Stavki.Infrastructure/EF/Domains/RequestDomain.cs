@@ -23,7 +23,8 @@ namespace Stavki.Infrastructure.EF.Domains
         public DateTime RequestCreateDate { get; set; }
 
         public List<CommentDomain> Comments { get; set; } = new List<CommentDomain>();
-        
+        public List<RequestHistoryDomain> RequestHistory { get; set; } = new List<RequestHistoryDomain>();
+
         public string? ResponsibleUser { get; set; }
 
         public int? ResponsibleUserId { get; set; }

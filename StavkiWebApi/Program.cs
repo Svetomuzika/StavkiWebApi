@@ -9,6 +9,7 @@ using Stavki.Infrastructure.Auth;
 using Stavki.Infrastructure.Autofac;
 using Stavki.Infrastructure.EF;
 using Stavki.Infrastructure.Services;
+using Stavki.Infrastructure.SignalR;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -72,6 +73,10 @@ builder.Services.AddCors(options => {
         });
 });
 
+builder.Services.AddSignalR();
+
+
+
 var app = builder.Build();
 
 app.UseSwagger();
@@ -83,6 +88,8 @@ app.UseSwaggerUI(c =>
 app.UseDeveloperExceptionPage();
 app.UseCors("AllowAll");
 app.UseHangfireDashboard();
+
+app.MapHub<ChatHub>("api/chat");
 
 //app.UseHttpsRedirection();
 
