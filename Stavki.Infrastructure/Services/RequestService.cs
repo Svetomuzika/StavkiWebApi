@@ -296,7 +296,8 @@ namespace Stavki.Infrastructure.Services
 
             var bot = new TelegramBotClient("6100858111:AAFvM_Cp6o8NTzt0HIrrdMCkdKtwSx3wtgA");
 
-            var aa = bot.SendTextMessageAsync("453384395", $"В заявке №{id} оставлен новый комментарий \nСсылка для перехода к заявке: http://localhost:5173/requests/{id}").Result;
+            //var aa = bot.SendTextMessageAsync("453384395", $"В заявке №{id} оставлен новый комментарий \nСсылка для перехода к заявке: http://localhost:5173/requests/{id}").Result;
+            var aa = bot.SendTextMessageAsync("542880503", $"В заявке №{id} оставлен новый комментарий \nСсылка для перехода к заявке: http://localhost:5173/requests/{id}").Result;
 
             _alertService.SendEmailAlert("leshabelousov2001@gmail.com", "Уведомление по заявке", $"В заявке №{id} оставлен новый комментарий <br/>Ссылка для перехода к заявке: http://localhost:5173/requests/{id}");
         }

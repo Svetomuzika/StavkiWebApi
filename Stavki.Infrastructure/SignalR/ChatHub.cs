@@ -27,7 +27,11 @@ namespace Stavki.Infrastructure.SignalR
                 Text = comment.Comment,
             };
 
-            await Clients.All.SendAsync("Receive", comm);
+            await Clients.Caller.SendAsync("Receive", comm);
+
+            await Task.Delay(10000);
+
+            await Clients.Others.SendAsync("Receive", comm);
         }
     }
 }

@@ -5,6 +5,7 @@ using Hangfire;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Stavki.Data.Data;
 using Stavki.Infrastructure.Auth;
 using Stavki.Infrastructure.Autofac;
 using Stavki.Infrastructure.EF;
@@ -22,6 +23,8 @@ builder.Services.AddControllers().AddJsonOptions(options =>
     options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
     options.JsonSerializerOptions.WriteIndented = true;
 });
+
+var a = new ChatHub(null).Send(new CommentInfo());
 
 builder.Services.AddDbContext<ApplicationContext>(options => options
     .UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
