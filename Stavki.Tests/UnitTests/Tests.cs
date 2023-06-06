@@ -7,7 +7,6 @@ using NUnit.Framework;
 
 namespace Stavki.Tests.UnitTests
 {
-    [TestFixture]
     public class Tests
     {
         [Test(Description = "Поиск по статусу 'Новый'. Должно найтись 2 обращения.")]

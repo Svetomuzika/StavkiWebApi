@@ -7,7 +7,6 @@ using NUnit.Framework;
 
 namespace Stavki.Tests.UnitTests.RequestStatesTest
 {
-    [TestFixture]
 
     public class CanceledRequestStateTest
     {
