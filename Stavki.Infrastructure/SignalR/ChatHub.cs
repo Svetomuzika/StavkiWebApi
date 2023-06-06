@@ -31,9 +31,12 @@ namespace Stavki.Infrastructure.SignalR
 
             await Clients.Caller.SendAsync("Receive", comm);
 
-            Action task = () => Clients.Others.SendAsync("Receive", comm);
+            await Task.Run(async () =>
+            {
+                await Task.Delay(10000);
 
-            JobId = BackgroundJob.Schedule(() => task.Invoke(), TimeSpan.FromSeconds(10));
+                await Clients.Others.SendAsync("Receive", comm);
+            });
         }
 
         public async Task Update(CommentInfo comment)
@@ -52,9 +55,14 @@ namespace Stavki.Infrastructure.SignalR
             BackgroundJob.Delete(JobId);
 
 
-            var a = Clients.Others.SendAsync("Receive", comm);
+            //var a = Clients.Others.SendAsync("Receive", comm);
 
-            JobId = BackgroundJob.Schedule(() => a, TimeSpan.FromSeconds(10));
+            await Task.Run(async () =>
+            {
+                await Task.Delay(10000);
+
+                await Clients.Others.SendAsync("Receive", comm);
+            });
         }
 
         public async void SendDelayedMessagesJob(CommentDomain comm)
