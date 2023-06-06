@@ -31,9 +31,9 @@ namespace Stavki.Infrastructure.SignalR
 
             await Clients.Caller.SendAsync("Receive", comm);
 
-            var a = Clients.Others.SendAsync("Receive", comm);
+            Action task = () => Clients.Others.SendAsync("Receive", comm);
 
-            JobId = BackgroundJob.Schedule(() => a.Start(), TimeSpan.FromSeconds(10));
+            JobId = BackgroundJob.Schedule(() => task.Invoke(), TimeSpan.FromSeconds(10));
         }
 
         public async Task Update(CommentInfo comment)
