@@ -26,6 +26,7 @@ namespace Stavki.Infrastructure.SignalR
                 UserId = comment.UserId,
                 CreateDate = DateTime.Now,
                 Text = comment.Comment,
+                Id = res.Id
             };
 
             await Clients.Caller.SendAsync("Receive", comm);
@@ -43,6 +44,7 @@ namespace Stavki.Infrastructure.SignalR
                 UserId = comment.UserId,
                 CreateDate = DateTime.Now,
                 Text = comment.Comment,
+                Id = comment.Id
             };
 
             BackgroundJob.Delete(JobId);
