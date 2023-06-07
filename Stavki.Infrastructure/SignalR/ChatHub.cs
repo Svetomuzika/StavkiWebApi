@@ -48,7 +48,7 @@ namespace Stavki.Infrastructure.SignalR
 
         public async Task Update(CommentInfo comment)
         {
-            var ab = _requestService.UpdateComment(comment);
+            _requestService.UpdateComment(comment);
 
             var comm = new CommentDomain
             {
@@ -58,6 +58,8 @@ namespace Stavki.Infrastructure.SignalR
                 Text = comment.Comment,
                 Id = comment.Id
             };
+
+            await Task.Delay(10000);
 
             await Clients.Others.SendAsync("Receive", comm);
         }
