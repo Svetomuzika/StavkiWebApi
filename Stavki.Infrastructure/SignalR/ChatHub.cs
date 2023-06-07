@@ -10,6 +10,11 @@ namespace Stavki.Infrastructure.SignalR
     {
         private readonly IRequestService _requestService;
         private string? JobId;
+        private int Count = 0;
+        private static CommentDomain comm1;
+        private static CommentDomain comm2;
+
+
 
         public ChatHub(IRequestService requestService)
         {
@@ -26,23 +31,20 @@ namespace Stavki.Infrastructure.SignalR
                 UserId = comment.UserId,
                 CreateDate = DateTime.Now,
                 Text = comment.Comment,
-                Id = 123
+                Id = res.Id
             };
+
+            if (Count == 1)
+                comm1 = comm;
 
             await Clients.Caller.SendAsync("Receive", comm);
 
-            Func<Task> art = () => Clients.Others.SendAsync("Receive", comm);
+            if (Count == 2)
+            {
+                await Task.Delay(10000);
 
-            //var a = Task.Run(async() =>
-            //{
-            //    await Task.Delay(10000);
-
-            //    await Clients.Others.SendAsync("Receive", comm);
-
-            //    //await Clients.Others.SendAsync("Receive", comm);
-            //});
-
-            JobId = BackgroundJob.Schedule(() => art(), TimeSpan.FromSeconds(10));
+                await Clients.Others.SendAsync("Receive", comm1);
+            }
         }
 
         public async Task Update(CommentInfo comment)
@@ -58,18 +60,8 @@ namespace Stavki.Infrastructure.SignalR
                 Id = comment.Id
             };
 
-            BackgroundJob.Delete(JobId);
+            await Task.Delay(10000);
 
-            await Task.Run(async () =>
-            {
-                await Task.Delay(10000);
-
-                await Clients.Others.SendAsync("Receive", comm);
-            });
-        }
-
-        public async Task SendDelayedMessagesJob(CommentDomain comm)
-        {
             await Clients.Others.SendAsync("Receive", comm);
         }
     }
