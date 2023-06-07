@@ -1,4 +1,6 @@
-﻿namespace Stavki.Infrastructure
+﻿using Stavki.Infrastructure.EF.Domains;
+
+namespace Stavki.Infrastructure
 {
     public class Consts
     {
@@ -14,6 +16,14 @@
             public const string API_PEC_CITIES_URL = "http://www.pecom.ru/ru/calc/towns.php";
 
             public const string API_PEC_PRICE_URL = "http://calc.pecom.ru/bitrix/components/pecom/calc/ajax.php?places[0][{0},{1},{2},{3},{4},0,1]&take[town]=-473&deliver[town]={5}";
+        }
+
+        public static class Hub
+        {
+            public static int Counts = 0;
+
+            public static CommentDomain Comm1;
+            public static CommentDomain Comm2;
         }
     }
 }

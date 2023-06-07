@@ -10,9 +10,6 @@ namespace Stavki.Infrastructure.SignalR
     {
         private readonly IRequestService _requestService;
         private string? JobId;
-        private int Count = 0;
-        private static CommentDomain comm1;
-        private static CommentDomain comm2;
 
 
 
@@ -23,7 +20,7 @@ namespace Stavki.Infrastructure.SignalR
 
         public async Task Send(CommentInfo comment)
         {
-            Count++;
+            Consts.Hub.Counts++;
 
             var res = _requestService.AddComment(comment);
 
@@ -36,16 +33,16 @@ namespace Stavki.Infrastructure.SignalR
                 Id = res.Id
             };
 
-            if (Count == 1)
-                comm1 = comm;
+            if (Consts.Hub.Counts == 1)
+                Consts.Hub.Comm1 = comm;
 
             await Clients.Caller.SendAsync("Receive", comm);
 
-            if (Count == 2)
+            if (Consts.Hub.Counts == 2)
             {
                 await Task.Delay(10000);
 
-                await Clients.Others.SendAsync("Receive", comm1);
+                await Clients.Others.SendAsync("Receive", Consts.Hub.Comm1);
             }
         }
 
