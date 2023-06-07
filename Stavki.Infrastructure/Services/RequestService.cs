@@ -226,7 +226,9 @@ namespace Stavki.Infrastructure.Services
 
             _commentRepository.Create(comm);
 
-            JobId = BackgroundJob.Schedule(() => SendDelayedMessagesJob(comment.RequestId), TimeSpan.FromSeconds(10));
+            if(Consts.Hub.Counts == 1)
+                JobId = BackgroundJob.Schedule(() => SendDelayedMessagesJob(comment.RequestId), TimeSpan.FromSeconds(10));
+
             comment.Id = comm.Id;
             return comment;
         }
@@ -240,8 +242,6 @@ namespace Stavki.Infrastructure.Services
             commentEntity.Text = comment.Comment;
 
             _commentRepository.Update(commentEntity);
-
-            BackgroundJob.Delete(JobId);
 
             JobId = BackgroundJob.Schedule(() => SendDelayedMessagesJob(comment.RequestId), TimeSpan.FromSeconds(10));
 
