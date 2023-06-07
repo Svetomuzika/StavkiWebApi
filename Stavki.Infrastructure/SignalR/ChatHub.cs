@@ -23,6 +23,8 @@ namespace Stavki.Infrastructure.SignalR
 
         public async Task Send(CommentInfo comment)
         {
+            Count++;
+
             var res = _requestService.AddComment(comment);
 
             var comm = new CommentDomain

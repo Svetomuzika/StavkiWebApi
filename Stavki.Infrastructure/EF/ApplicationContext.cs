@@ -14,7 +14,7 @@ namespace Stavki.Infrastructure.EF
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=StavkiDB;Trusted_Connection=True;");
+            optionsBuilder.UseSqlServer(@"Server=(localdb)\\mssqllocaldb;Database=StavkiDB;Trusted_Connection=False;Integrated Security=True");
         }
     }
 }
