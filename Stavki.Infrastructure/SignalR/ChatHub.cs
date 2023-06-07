@@ -26,17 +26,23 @@ namespace Stavki.Infrastructure.SignalR
                 UserId = comment.UserId,
                 CreateDate = DateTime.Now,
                 Text = comment.Comment,
-                Id = res.Id
+                Id = 123
             };
 
             await Clients.Caller.SendAsync("Receive", comm);
 
-            await Task.Run(async () =>
-            {
-                await Task.Delay(10000);
+            Func<Task> art = () => Clients.Others.SendAsync("Receive", comm);
 
-                await Clients.Others.SendAsync("Receive", comm);
-            });
+            //var a = Task.Run(async() =>
+            //{
+            //    await Task.Delay(10000);
+
+            //    await Clients.Others.SendAsync("Receive", comm);
+
+            //    //await Clients.Others.SendAsync("Receive", comm);
+            //});
+
+            JobId = BackgroundJob.Schedule(() => art(), TimeSpan.FromSeconds(10));
         }
 
         public async Task Update(CommentInfo comment)
@@ -51,6 +57,8 @@ namespace Stavki.Infrastructure.SignalR
                 Text = comment.Comment,
                 Id = comment.Id
             };
+
+            BackgroundJob.Delete(JobId);
 
             await Task.Run(async () =>
             {
