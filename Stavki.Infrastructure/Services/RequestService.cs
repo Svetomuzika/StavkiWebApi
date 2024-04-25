@@ -243,7 +243,7 @@ namespace Stavki.Infrastructure.Services
 
             _commentRepository.Update(commentEntity);
 
-            JobId = BackgroundJob.Schedule(() => SendDelayedMessagesJob(comment.RequestId), TimeSpan.FromSeconds(5));
+            JobId = BackgroundJob.Schedule(() => SendDelayedMessagesJob(comment.RequestId), TimeSpan.FromSeconds(8));
 
             return true;
         }
